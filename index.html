@@ -1737,36 +1737,44 @@
       background: transparent;
     }
 
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
+  /* 1) Container’daki fazla soldan boşluğu kaldır */
+  #site-footer .footer-container {
+    /* Eski margin-left’i sıfırla */
+    margin-left: 0 !important;
+    /* Kenarlardan boşluk vermek istersen padding kullan */
+    padding: 0 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;   /* Sola yasla */
+  }
 
-      #site-footer .footer-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 1rem !important;
-      }
+  /* 2) Her bir footer-col’u sola hizala */
+  #site-footer .footer-col {
+    width: 100% !important;
+    margin: 0 0 1rem 0 !important;        /* Alt boşluk */
+    text-align: left !important;          /* Sola hizala */
+    padding: 0 !important;                /* Eğer padding varsa sıfırla */
+  }
 
-      #site-footer .footer-col {
-        width: 100% !important;
-        margin: 0 0 1.5rem !important;
-        text-align: center !important;
-      }
+  /* 3) “Address” bölümü daha da sola gelsin */
+  #site-footer .footer-col.address,
+  #site-footer .footer-col.contact {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
 
-      #site-footer .footer-col.about .footer-logo {
-        margin: 0 auto 1rem !important;
-        display: block !important;
-      }
+  /* 4) Footer kopyası ortada kalsın istersen */
+  .footer-copy {
+    text-align: center !important;
+  }
+}
 
-      .footer-copy {
-        text-align: center !important;
-        margin-top: 1rem !important;
-      }
-    }
+
 
     .intervention-card,
     .project-card {
-      outline: 2px solid transparent;
+      outline: 2px solid transparent;ege
       outline-offset: 6px;
       transition: outline-color 0.3s, outline-offset 0.3s;
     }
@@ -1999,7 +2007,7 @@
         word-break: break-word !important;
       }
     }
-    
+
   </style>
 </head>
 
