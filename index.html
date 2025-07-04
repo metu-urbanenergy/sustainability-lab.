@@ -5,17 +5,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta
-  name="description"
-  content="METU Urban Energy Transition & Sustainability Lab – a multidisciplinary research group in Ankara conducting data-driven energy modeling, sustainable building renovation strategies, carbon emission analysis, and smart urban energy systems for low-carbon, energy-efficient cities."
-  >
+  <meta name="description"
+    content="METU Urban Energy Transition & Sustainability Lab – a multidisciplinary research group in Ankara conducting data-driven energy modeling, sustainable building renovation strategies, carbon emission analysis, and smart urban energy systems for low-carbon, energy-efficient cities.">
   <meta name="google-site-verification" content="3fFYX9UE-Avxq5u1tqw7IZq14fgN-mU2Lbo6m70fZtQ" />
   <title>METU Urban Energy Transition &amp; Sustainability Lab.</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-…(6.4.0 integrity)…" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  <link rel="icon" type="image/png" sizes="48x48" href="images/icons/favicon-48x48.png">  
+
+  <link rel="icon" type="image/png" sizes="48x48" href="images/icons/favicon-48x48.png">
   >
 
   <style>
@@ -51,16 +49,19 @@
 
     /* ——— Mevcut tüm kurallarınızın hemen altına ekleyin ——— */
     @media (max-width: 767px) {
+
       /* 1) Header’ın kapattığı içeriği itmek için body’ye üst boşluk */
       body {
-        padding-top: 4.5rem; /* header yüksekliğiniz kadar ayarlayın */
+        padding-top: 3.0rem;
+        /* header yüksekliğiniz kadar ayarlayın */
       }
 
       /* 2) Anchor link’lerde başlıkların header altında kalmaması için */
       html {
-        scroll-padding-top: 4.5rem;
+        scroll-padding-top: 3.5rem;
       }
     }
+
     /* ——— Dark Mod Tema & Buton Değişkenleri ——— */
     body.dark {
       --bg-color: #000000;
@@ -247,110 +248,187 @@
       /* daha büyük */
     }
 
-    nav ul {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      /* Daraldığında sarılmayı etkinleştiriyoruz */
-      flex-wrap: wrap;
-    }
+    /* ─── basic reset for nav ─── */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-    /* ─── Hamburger Toggle Butonu ─── */
-    #nav-toggle {
-      display: inline-block;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--nav-text);
-      cursor: pointer;
-      padding: 0.5rem;
-      margin-right: 1rem;
-    }
+/* always fixed header */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(230,235,224,0.7);
+  backdrop-filter: blur(8px);
+  padding: 1rem 2rem;
+  z-index: 1000;
+}
 
-    /* Başlangıçta menüyü gizle */
-    nav ul {
-      display: none;
-    }
+/* nav-toggle button */
+#nav-toggle {
+  background: none; border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--nav-text);
+  display: inline-block;
+}
 
-    /* Menü açıldığında eklenilecek sınıf */
-    nav ul.open {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      position: absolute;
-      top: 100%;
-      right: 1rem;
-      background: gray;
-      padding: 1rem;
-      border-radius: var(--nav-border-radius);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
+/* hide menu by default */
+#main-nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  right: 0.5rem;
+  background: var(--nav-bg);
+  padding: 0.5rem;
+  border-radius: var(--nav-border-radius);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 10rem;
+  overflow-y: auto;
+}
 
-    /* Büyük ekran: hamburger gizle, menüyü satır olarak göster */
-    @media (min-width: 768px) {
-      #nav-toggle {
-        display: none;
-      }
+/* when open */
+#main-nav.open {
+  display: flex;
+}
 
-      nav ul {
-        display: flex !important;
-        position: static;
-        flex-direction: row;
-        background: none;
-        padding: 0;
-        gap: 1rem;
-        box-shadow: none;
-      }
-    }
+/* each item */
+#main-nav li {
+  margin: 0;
+}
+#main-nav a,
+#main-nav button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--nav-border-radius);
+  transition: background 0.2s, transform 0.2s;
+}
+#main-nav a:hover,
+#main-nav button:hover {
+  background: var(--nav-hover-bg);
+  transform: translateY(-2px);
+}
 
-    /* ─── Mobil Menü (sağa yaslama) ─── */
+/* ─── desktop: always show menu inline, hide hamburger ─── */
+@media (min-width: 768px) {
+  #nav-toggle {
+    display: none;
+  }
+  #main-nav {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    background: none;
+    padding: 0;
+    gap: 1rem;
+    box-shadow: none;
+    max-width: none;
+  }
+}
+
+/* ─── mobile: hide text labels, only icons ─── */
+@media (max-width: 767px) {
+  .nav-label {
+    display: none;
+  }
+  /* shrink header padding a bit */
+  #navbar {
+    padding: 0.5rem 1rem;
+  }
+  .logo-text {
+    font-size: 1rem;
+  }
+}
+
+
+    /* ─── Mobile Hamburger Menu Düzenleme ─── */
+@media (max-width: 767px) {
+  /* Nesnelere müdahale eden tüm eski width/height zorlamalarını kaldırın */
+  nav ul {
+    display: none;
+  }
+  nav ul.open {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;        /* içtekileri sağa yasla */
+
+    position: absolute !important;
+    top: calc(100% + 0.5rem) !important;     /* header’ın hemen altında */
+    right: 0.5rem !important;                /* tam sağa 0.5rem boşluk */
+
+    background: var(--nav-bg) !important;    /* tema rengiyle uyumlu */
+    padding: 0.5rem !important;
+    border-radius: var(--nav-border-radius) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+
+    width: auto !important;                  /* içeriğe göre küçülsün */
+    max-width: 10rem !important;             /* daha kompakt bir üst sınır */
+    height: auto !important;                 /* yüksekliği içeriğe bırak */
+    max-height: calc(100vh - 4rem) !important; /* viewport’a sığmıyorsa scroll */
+    overflow-y: auto !important;
+  }
+
+  nav ul.open li {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  nav ul.open li a,
+  nav ul.open li button {
+    display: block !important;
+    width: 100% !important;                  /* butonlar kutuyu kaplasın */
+    text-align: right !important;
+    padding: 0.4rem 0.75rem !important;
+    margin-top: 0.25rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+
+  /* Header küçültme */
+  header {
+    padding: 0.3rem 1rem;
+  }
+  .logo span {
+    font-size: 1rem;
+  }
+
+
     @media (max-width: 767px) {
 
-      /* Açıldığında menüyü ekranın en sağından başlat */
-      nav ul.open {
-        right: 0 !important;
-        /* Kenardan 0 boşluk */
-        padding: 1rem;
-        /* İç boşluk */
-        align-items: flex-end;
-        /* İçerikleri sağa hizala */
+      /* 1) Header’ın yatay padding’ini daralt */
+      header {
+        padding: 0.5rem 1rem !important;
       }
 
-      /* Menü öğelerini tam genişlikte block yapıp text-align ile sağa yasla */
+      /* 2) Logo metnini küçült */
+      header .logo span {
+        font-size: 1rem !important;
+      }
+
+      /* 3) Mobil menünün genişliğini sınırla (%80’e düşür) */
+      nav ul.open {
+        width: 80% !important;
+      }
+
+      /* 4) Menü öğelerinin padding ve font-size’ını küçült */
       nav ul.open li a,
       nav ul.open li button {
-        display: block;
-        width: 100%;
-        text-align: right;
-        /* Metni sağa hizala */
-        padding-right: 1rem;
-        /* Sağ kenardan ekstra boşluk isterseniz */
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.9rem !important;
       }
     }
-  @media (max-width: 767px) {
-    /* 1) Header’ın yatay padding’ini daralt */
-    header {
-      padding: 0.5rem 1rem !important;
-    }
-
-    /* 2) Logo metnini küçült */
-    header .logo span {
-      font-size: 1rem !important;
-    }
-
-    /* 3) Mobil menünün genişliğini sınırla (%80’e düşür) */
-    nav ul.open {
-      width: 80% !important;
-    }
-
-    /* 4) Menü öğelerinin padding ve font-size’ını küçült */
-    nav ul.open li a,
-    nav ul.open li button {
-      padding: 0.5rem 0.75rem !important;
-      font-size: 0.9rem !important;
-    }
-  }
 
 
 
@@ -750,73 +828,74 @@
       background: var(--heading-color);
     }
 
-@media (max-width: 768px) {
-  /* 1) Section içeriğe göre büyüsün */
-  #why-efficiency {
-    height: auto !important;
-    overflow: visible !important;
-    padding-bottom: 1rem !important;
-  }
+    @media (max-width: 768px) {
 
-  /* 2) Container dikey, içeriğe göre yüksekliği auto */
-  #why-efficiency .we-container {
-    display: flex           !important;
-    flex-direction: column  !important;
-    height: auto            !important;
-    margin: 0               !important;
-    padding: 0              !important;
-    gap: 0                  !important;
-  }
+      /* 1) Section içeriğe göre büyüsün */
+      #why-efficiency {
+        height: auto !important;
+        overflow: visible !important;
+        padding-bottom: 1rem !important;
+      }
 
-  /* 3) Metin bloğu natural boyutta */
-  #why-efficiency .we-text {
-    flex: 0 0 auto          !important;
-    padding: 1rem           !important;
-    overflow: visible       !important;
-  }
+      /* 2) Container dikey, içeriğe göre yüksekliği auto */
+      #why-efficiency .we-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+      }
 
-  /* 4) Carousel içeriğe uyumlu yükseklik, overflow-x için gizleme */
-  #why-efficiency .we-carousel {
-    flex: 0 0 auto          !important;
-    width: 100%             !important;
-    max-width: none         !important;
-    height: auto            !important;
-    overflow-x: hidden      !important;
-    overflow-y: visible     !important;
-    margin: 0               !important;
-    border-radius: 0        !important;
-    animation: none         !important;
-  }
+      /* 3) Metin bloğu natural boyutta */
+      #why-efficiency .we-text {
+        flex: 0 0 auto !important;
+        padding: 1rem !important;
+        overflow: visible !important;
+      }
 
-  /* 5) Slaytlar yatayda kaymaya devam etsin */
-  #why-efficiency .we-slides {
-    position: relative      !important;
-    display: flex           !important;
-    flex-wrap: nowrap       !important;
-    width: 100%             !important;
-    height: auto            !important;
-    transition: transform 0.5s ease !important;
-  }
+      /* 4) Carousel içeriğe uyumlu yükseklik, overflow-x için gizleme */
+      #why-efficiency .we-carousel {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        animation: none !important;
+      }
 
-  /* 6) Görseller full-width, otomatik height */
-  #why-efficiency .we-slides img {
-    flex: 0 0 100%          !important;
-    width: 100%             !important;
-    height: auto            !important;
-    object-fit: contain     !important;
-    display: block          !important;
-  }
+      /* 5) Slaytlar yatayda kaymaya devam etsin */
+      #why-efficiency .we-slides {
+        position: relative !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        height: auto !important;
+        transition: transform 0.5s ease !important;
+      }
 
-  /* 7) Noktalar hâlâ carousel’in altında görünsün */
-  #why-efficiency .we-dots {
-    position: absolute      !important;
-    bottom: 0.75rem         !important;
-    left: 50%               !important;
-    transform: translateX(-50%) !important;
-    display: flex           !important;
-    gap: 0.5rem             !important;
-  }
-}
+      /* 6) Görseller full-width, otomatik height */
+      #why-efficiency .we-slides img {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+        display: block !important;
+      }
+
+      /* 7) Noktalar hâlâ carousel’in altında görünsün */
+      #why-efficiency .we-dots {
+        position: absolute !important;
+        bottom: 0.75rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        display: flex !important;
+        gap: 0.5rem !important;
+      }
+    }
 
 
 
@@ -1017,13 +1096,16 @@
     }
 
     #what-we-do .view-toggle-container {
-      margin-top: 4rem; /* eski h2’nin margin-top:4rem’ini bu satırla koruduk */
+      margin-top: 4rem;
+      /* eski h2’nin margin-top:4rem’ini bu satırla koruduk */
     }
 
     /* 3) Butonu büyütmek için padding ve font-size arttır */
     #what-we-do #view-toggle {
-      padding: 1rem 2rem;    /* dikeyde 1rem, yatayda 2rem */
-      font-size: 1.0rem;    /* yazı boyutu %25 artırıldı */
+      padding: 1rem 2rem;
+      /* dikeyde 1rem, yatayda 2rem */
+      font-size: 1.0rem;
+      /* yazı boyutu %25 artırıldı */
     }
 
     /* Kart Arka Yüzü */
@@ -1081,16 +1163,19 @@
 
     /* Kart altı info kutusundaki yazıları küçültme */
     #what-we-do .intervention-card .info {
-      padding: 0.5rem !important;       /* Alt kutunun yüksekliğini biraz azalt */
+      padding: 0.5rem !important;
+      /* Alt kutunun yüksekliğini biraz azalt */
     }
 
     #what-we-do .intervention-card .info h3 {
-      font-size: 1rem !important;      /* Başlık boyutu, önceki ~1.25rem yerine */
+      font-size: 1rem !important;
+      /* Başlık boyutu, önceki ~1.25rem yerine */
       line-height: 1.1 !important;
     }
 
     #what-we-do .intervention-card .info p {
-      font-size: 0.8rem !important;     /* Açıklama metni, önceki ~1rem yerine */
+      font-size: 0.8rem !important;
+      /* Açıklama metni, önceki ~1rem yerine */
       line-height: 1.1 !important;
       margin-top: 0.25rem !important;
     }
@@ -1167,28 +1252,30 @@
     }
 
     @media (max-width: 768px) {
-      /* Arka yüz metinlerini küçült */
-      #what-we-do .flip-card-back h3 {
-        font-size: 0.9rem !important;
-        line-height: 1.1 !important;
-      }
-      #what-we-do .flip-card-back p {
-        font-size: 0.7rem !important;
-        line-height: 1.2 !important;
-        margin: 0.25rem 0 !important;
+
+      /* 1) Wrapper’ı tek hücrelik grid’e dönüştürüp 
+        tüm .cards’ları aynı hücreye yerleştir */
+      #what-we-do .cards-wrapper {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
       }
 
-      /* Arka yüz padding’ini sıkılaştır */
-      #what-we-do .flip-card-back {
-        padding: 0.5rem !important;
-      }
+      /* 2) Sadece visible (hidden olmayan) .cards set’lerini 
+        2 sütunlu grid yap ve wrapper’ın 1. hücresine yerleştir */
+      #what-we-do .cards:not([hidden]) {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
 
-      /* Kartların minimum yüksekliğini arttır */
-      #what-we-do .cards .flip-card {
-        min-height: 260px !important;
+        grid-column: 1;
+        grid-row: 1;
+
+        justify-self: center;
+        width: 90%;
+        margin: 0 auto;
       }
     }
-
 
     .toggle-buttons {
       display: inline-flex;
@@ -1581,19 +1668,6 @@
       font-size: 2rem;
     }
 
-    /* Publications listesi — (değişmedi) */
-    .publications-list {
-      /* … */
-    }
-
-    .publication {
-      /* … */
-    }
-
-    .publication a {
-      /* … */
-    }
-
     /* (responsive ayarlarınız da aynı kalabilir) */
 
     /* ─── Publications (Desktop-First) ─── */
@@ -1845,10 +1919,12 @@
     .footer-container {
       display: flex;
       justify-content: space-between;
-      align-items: stretch;   /* <-- EN ÖNEMLİ SATIR */
+      align-items: stretch;
+      /* <-- EN ÖNEMLİ SATIR */
       gap: 4rem;
       margin-left: 4rem;
     }
+
     .footer-col {
       flex: 1 1 30%;
       /* ... */
@@ -1856,7 +1932,8 @@
 
     .footer-col.address,
     .footer-col.contact {
-      margin-top: 3rem;  /* İstediğin kadar ayarlayabilirsin */
+      margin-top: 3rem;
+      /* İstediğin kadar ayarlayabilirsin */
       margin-left: 4rem;
     }
 
@@ -1898,18 +1975,38 @@
     #site-footer .footer-col.contact {
       background: transparent;
     }
+
     @media (max-width: 768px) {
-      .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+
+      /* Footer container’ı dikey stack’e al */
+      #site-footer .footer-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 1rem !important;
       }
 
-      .footer-col {
-        flex: 1 1 100%;
-        margin-bottom: 1.5rem;
+      /* Her bir kolonu tam genişlikte blok yap, arada boşluk bırak */
+      #site-footer .footer-col {
+        width: 100% !important;
+        margin: 0 0 1.5rem !important;
+        text-align: center !important;
+      }
+
+      /* Logo’yu da ortala */
+      #site-footer .footer-col.about .footer-logo {
+        margin: 0 auto 1rem !important;
+        display: block !important;
+      }
+
+      /* Alt kopyayı ortaya hizala */
+      .footer-copy {
+        text-align: center !important;
+        margin-top: 1rem !important;
       }
     }
+
 
 
     /* Light modda transparent outline */
@@ -2149,8 +2246,44 @@
       /* hover’da biraz koyulaşsın */
     }
 
+    @media (max-width: 768px) {
 
+      /* 1) Grid’i iki sütun, ama hücreler küçücük kalmasın */
+      .modal-cards {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem !important;
+      }
 
+      /* 2) Kart genişliğini biraz daha kısıtla, iç boşlukları daralt */
+      .modal-card {
+        width: 100% !important;
+        max-width: 140px !important;
+        padding: 0.5rem !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 6px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* 3) Görseli de biraz küçült, başlık için yer aç */
+      .modal-card img {
+        width: 100% !important;
+        max-height: 80px !important;
+        object-fit: contain !important;
+      }
+
+      /* 4) Başlıklarda font ve satır yüksekliğini küçült, sarmayı destekle */
+      .modal-card p {
+        margin: 0.4rem 0 0 !important;
+        font-size: 0.85rem !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+        word-break: break-word !important;
+      }
+    }
 
     /* —— /Responsive Eklentiler —— */
   </style>
@@ -2158,48 +2291,62 @@
 
 <body class="light" lang="en">
 
-  <!-- Header -->
-  <header id="navbar">
-    <div class="logo">
-      <img src="images/9.4.png" alt="Logo" class="logo-light">
-      <img src="images/9.8.png" alt="Logo" class="logo-dark">
-      <span>METU Urban Energy Transition &amp; Sustainability Lab.</span>
-    </div>
-    <nav>
-      <!-- Hamburger Toggle Butonu (küçük ekranlar için) -->
-      <button id="nav-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
+<header id="navbar">
+  <div class="logo">
+    <img src="images/9.4.png" alt="Logo" class="logo-light">
+    <img src="images/9.8.png" alt="Logo" class="logo-dark">
+    <span class="logo-text">METU Urban Energy Transition &amp; Sustainability Lab.</span>
+  </div>
 
-      <!-- Ana Menü -->
-      <ul>
-        <li>
-          <a href="#home" data-tr="Ana Sayfa" data-en="Home">Home</a>
-        </li>
-        <li>
-          <a href="#team" data-tr="Ekibimiz" data-en="About Us">About Us</a>
-        </li>
-        <li>
-          <a href="#publications" data-tr="Yayınlar" data-en="Publications">Publications</a>
-        </li>
-        <li>
-          <a href="#contact" data-tr="İletişim" data-en="Contact">Contact</a>
-        </li>
-        <li>
-          <button id="theme-toggle" aria-label="Temayı değiştir">
-            <i id="theme-icon" class="fas fa-moon"></i>
-          </button>
-        </li>
-        <li>
-          <button id="lang-toggle" aria-label="Dili değiştir">
-            <span class="lang-label" data-lang="en">EN</span>
-            <span class="separator">/</span>
-            <span class="lang-label" data-lang="tr">TR</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <!-- hamburger -->
+    <button id="nav-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- actual menu -->
+    <ul id="main-nav">
+      <li>
+        <a href="#home">
+          <i class="fas fa-home"></i>
+          <span class="nav-label" data-tr="Ana Sayfa" data-en="Home">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#team">
+          <i class="fas fa-users"></i>
+          <span class="nav-label" data-tr="Ekibimiz" data-en="About Us">About Us</span>
+        </a>
+      </li>
+      <li>
+        <a href="#publications">
+          <i class="fas fa-book-open"></i>
+          <span class="nav-label" data-tr="Yayınlar" data-en="Publications">Publications</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact">
+          <i class="fas fa-envelope"></i>
+          <span class="nav-label" data-tr="İletişim" data-en="Contact">Contact</span>
+        </a>
+      </li>
+      <li>
+        <button id="theme-toggle" aria-label="Temayı değiştir">
+          <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+      </li>
+      <li>
+        <button id="lang-toggle" aria-label="Dili değiştir">
+          <span class="lang-label" data-lang="en">EN</span>
+          <span class="separator">/</span>
+          <span class="lang-label" data-lang="tr">TR</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
 
 
   <!-- Hero -->
@@ -2291,20 +2438,21 @@
       </div>
 
       <!-- Sağ: Kayan Görseller Carousel -->
-    <div class="we-carousel">
-      <div class="we-slides">
-        <img src="images/slides/slide1.png" alt="IEA Net Zero 2050 Roadmap">
-        <img src="images/slides/slide2.png" alt="IEA Net Zero 2050 Roadmap">
-        <img src="images/slides/slide3.png" alt="IEA Net Zero 2050 Roadmap">
-        <img src="images/slides/slide4.png" alt="IEA Net Zero 2050 Roadmap">
+      <div class="we-carousel">
+        <div class="we-slides">
+          <img src="images/slides/slide1.png" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide2.png" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide3.png" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide4.png" alt="IEA Net Zero 2050 Roadmap">
+        </div>
+        <div class="we-dots"></div>
       </div>
-      <div class="we-dots"></div>
-    </div>
   </section>
 
 
   <section id="what-we-do">
-    <h2 data-tr="Energy Renovasyonları Ve Metrikleri Analiz Ediyoruz." data-en="We Analyze Energy Renovations and Metrics.">Energy Renovasyonları Ve Metrikleri Analiz Ediyoruz.</h2>
+    <h2 data-tr="Energy Renovasyonları Ve Metrikleri Analiz Ediyoruz."
+      data-en="We Analyze Energy Renovations and Metrics.">Energy Renovasyonları Ve Metrikleri Analiz Ediyoruz.</h2>
 
     <!-- Sekme Butonları -->
     <div class="view-toggle-container">
@@ -2470,8 +2618,7 @@
                 <h3 data-tr="Kent Mobilyası Tasarımları" data-en="Urban Furniture Design">
                   Kent Mobilyası Tasarımları
                 </h3>
-                <p data-tr="Sürdürülebilir Kent Mobilyaları."
-                  data-en="Sustainable urban furnitures.">
+                <p data-tr="Sürdürülebilir Kent Mobilyaları." data-en="Sustainable urban furnitures.">
                   Kentsel mekanlar için ergonomik ve sürdürülebilir mobilya tasarımına yönelik malzeme, yerleşim ve
                   işlevsellik optimizasyonu yapılır.
                 </p>
@@ -2636,7 +2783,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 6-100.jpg"Embodied Carbon">
+              <img src="images/diagrams/Çalışma Yüzeyi 6-100.jpg" Embodied Carbon">
               <div class="info">
                 <h3 data-tr="Gömülü Karbon" data-en="Embodied Carbon">
                   Gömülü Karbon
@@ -2668,9 +2815,9 @@
     <div class="projects-grid">
       <!-- 1. Proje Kartı -->
       <div class="project-card">
-        <img src="images/diagrams/Varlık 19.jpg" alt="UP 2030">
+        <img src="images/diagrams/Varlık 19.jpg" alt="UP2030">
         <div class="card-content">
-          <h3 data-tr="UP 2030" data-en="UP 2030">UP 2030</h3>
+          <h3 data-tr="UP2030" data-en="UP 2030">UP2030</h3>
           <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları and Metrik Panelleri"
             data-en="Urban Building Energy Models, Energy Renovation Scenarios and Dashboards">
             Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları ve Metrik Panelleri
@@ -2915,52 +3062,40 @@
       <div class="logo"><img src="images/partners/ibb.png" alt="Partner 5"></div>
   </section>
 
- <!-- ─── Footer / Contact ─── -->
-<footer id="site-footer">
-  <div class="footer-container">
-    <!-- 1: About -->
-    <div class="footer-col about">
-      <img src="images/3.4.png" alt="Lab Logo" class="footer-logo">
-      <p>Veri odaklı modelleme ve sürdürülebilir yenileme stratejileriyle kentsel enerji sistemlerini analiz edip optimize eden çok disiplinli araştırmalar yürütüyoruz.</p>
+  <!-- ─── Footer / Contact ─── -->
+  <footer id="site-footer">
+    <div class="footer-container">
+      <!-- 1: About -->
+      <div class="footer-col about">
+        <img src="images/3.4.png" alt="Lab Logo" class="footer-logo">
+        <p>Veri odaklı modelleme ve sürdürülebilir yenileme stratejileriyle kentsel enerji sistemlerini analiz edip
+          optimize eden çok disiplinli araştırmalar yürütüyoruz.</p>
+      </div>
+
+      <!-- 2: Address -->
+      <div class="footer-col address">
+        <h4>Address</h4>
+        <p>
+          Üniversiteler, Dumlupınar Blv. 1/6 D:133,<br> 06800 Çankaya/Ankara <br>
+          Orta Doğu Teknik Üniversitesi
+        </p>
+      </div>
+
+      <!-- 3: Contact (scroll target) -->
+      <div id="contact" class="footer-col contact">
+        <h4>Contact</h4>
+        <address>
+          <p><strong>Phone:</strong> +905455147800</p>
+          <p><strong>Email1:</strong> <a href="mailto:info@metu-energylab.edu.tr">ipekg@metu.edu.tr</a></p>
+          <p><strong>Email2:</strong> <a href="mailto:info@metu-energylab.edu.tr">cihat.ilkbahar@metu.edu.tr</a></p>
+        </address>
+      </div>
     </div>
 
-    <!-- 2: Address -->
-    <div class="footer-col address">
-      <h4>Address</h4>
-      <p>
-        Üniversiteler, Dumlupınar Blv. 1/6 D:133,<br> 06800 Çankaya/Ankara <br>
-        Orta Doğu Teknik Üniversitesi 
-      </p>
+    <div class="footer-copy">
+      &copy; 2025 METU Urban Energy Transition &amp; Sustainability Lab.
     </div>
-
-    <!-- 3: Contact (scroll target) -->
-    <div id="contact" class="footer-col contact">
-      <h4>Contact</h4>
-      <address>
-        <p><strong>Phone:</strong> +905455147800</p>
-        <p><strong>Email1:</strong> <a href="mailto:info@metu-energylab.edu.tr">ipekg@metu.edu.tr</a></p>
-        <p><strong>Email2:</strong> <a href="mailto:info@metu-energylab.edu.tr">cihat.ilkbahar@metu.edu.tr</a></p>
-      </address>
-    </div>
-  </div>
-
-  <div class="footer-copy">
-    &copy; 2025 METU Urban Energy Transition &amp; Sustainability Lab.
-  </div>
-</footer>
-
-
-
-
-  <script>
-    document.getElementById('nav-toggle').addEventListener('click', () => {
-      const menu = document.querySelector('nav ul');
-      const expanded = menu.classList.toggle('open');
-      document.getElementById('nav-toggle')
-        .setAttribute('aria-expanded', expanded);
-    });
-  </script>
-
+  </footer>
 
   <script>
 
@@ -3205,6 +3340,39 @@
     const track = document.querySelector('.partners-logos');
     track.innerHTML += track.innerHTML;
   </script>
+
+<script>
+  // Mobil hamburger menü aç/kapa ve dış tıklama/scroll ile kapanma
+  (function() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu   = document.querySelector('nav ul');
+
+    // Toggle butonuna tıklayınca
+    navToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+    });
+
+    // Sayfa herhangi bir yerine tıklandığında, eğer tıklanan nav içi değilse kapa
+    document.addEventListener('click', e => {
+      if (!navMenu.contains(e.target) && e.target !== navToggle) {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Scroll, wheel veya touchmove olduğunda da kapa
+    ['scroll', 'wheel', 'touchmove'].forEach(evt => {
+      window.addEventListener(evt, () => {
+        if (navMenu.classList.contains('open')) {
+          navMenu.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      }, { passive: true });
+    });
+  })();
+</script>
 
 </body>
 
