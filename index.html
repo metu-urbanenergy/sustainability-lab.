@@ -17,50 +17,31 @@
   >
 
   <style>
-    /* Tema Değişkenleri */
 
-
-    /* ——— Temel Tema & Buton Değişkenleri ——— */
     :root {
-      /* Temel renkler */
       --bg-color: #E6EBE0;
       --text-color: #000000;
       --heading-color: #ED6A5A;
       --accent-color: #000000;
 
-      /* Buton rengi – light mod */
-      --btn-bg: #bf2c19;
-      /* kırmızı */
-      --btn-text: #FFFFFF;
-      /* beyaz */
 
-      /* İsterseniz bu renkleri de değişken olarak tutabilirsiniz */
+      --btn-bg: #bf2c19;
+      --btn-text: #FFFFFF;
       --nav-bg: #ED6A5A;
-      /* light mod arkaplan */
       --nav-text: #FFFFFF;
-      /* light mod yazı rengi */
       --nav-hover-bg: #D4554E;
-      /* hover arkaplanı */
       --nav-border-radius: 0.375rem;
-      /* 6px */
       --nav-padding-y: 0.5rem;
       --nav-padding-x: 1rem;
     }
 
-    /* ——— Mevcut tüm kurallarınızın hemen altına ekleyin ——— */
-    @media (max-width: 767px) {
-
-      /* 1) Header’ın kapattığı içeriği itmek için body’ye üst boşluk */
       body {
         padding-top: 3.0rem;
-        /* header yüksekliğiniz kadar ayarlayın */
       }
 
-      /* 2) Anchor link’lerde başlıkların header altında kalmaması için */
       html {
         scroll-padding-top: 3.5rem;
       }
-    }
 
     /* ——— Dark Mod Tema & Buton Değişkenleri ——— */
     body.dark {
@@ -68,22 +49,14 @@
       --text-color: #E6EBE0;
       --heading-color: #E6EBE0;
       --accent-color: #E6EBE0;
-
-      /* Buton rengi – dark mod */
       --btn-bg: #FFFFFF;
-      /* beyaz */
       --btn-text: #000000;
-      /* siyah */
-
       --nav-bg: #FFFFFF;
-      /* dark mod arkaplan */
       --nav-text: #000000;
-      /* dark mod yazı */
       --nav-hover-bg: #E0E0E0;
-      /* hover arkaplanı */
     }
 
-    /* --- Nav linkleri ile birebir aynı stilde olsunlar --- */
+    /* --- Nav linkleri ile birebir aynı stilde --- */
     nav a,
     nav button {
       display: inline-block;
@@ -98,7 +71,6 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
       line-height: 1.2;
-      /* makes all boxes the same height */
     }
 
     nav a:hover,
@@ -108,21 +80,16 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
-
-    /* Hover & aktif durumları da aynen koruyalım */
     nav button#theme-toggle:hover,
     nav button#lang-toggle:hover {
       background-color: var(--nav-hover-bg);
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-
-
     #theme-icon {
       transition: transform 0.3s ease;
     }
 
-    /* Emoji bayrakları yalnızca aktif olanı gösterecek */
     .flag-en,
     .flag-tr {
       font-size: 1.25rem;
@@ -133,10 +100,8 @@
       display: none;
     }
 
-    /* Opsiyonel Hover Durumu */
     .btn:hover,
     .btn-details:hover {
-      /* Hover’da her modda kırmızı vurgu kullanmak isterseniz: */
       background-color: var(--heading-color);
       color: var(--bg-color);
     }
@@ -147,7 +112,6 @@
     .btn-details {
       background-color: var(--btn-bg);
       color: var(--btn-text);
-      /* isterseniz hover için de şöyle bir ekleme: */
       transition: background 0.2s, color 0.2s;
     }
 
@@ -157,7 +121,6 @@
       color: var(--bg-color);
     }
 
-    /* Dark moda geçince buton renkleri */
     body.dark .btn,
     body.dark .btn-details {
       background-color: var(--btn-bg);
@@ -169,8 +132,6 @@
       background-color: var(--accent-color);
       color: var(--bg-color);
     }
-
-    /* … geriye kalan tüm CSS’iniz olduğu gibi devam eder … */
 
     /* Reset & Temel Ayarlar */
     * {
@@ -193,19 +154,15 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    /* 1) Artık tüm section’lara height:100vh vermiyoruz */
     section {
       scroll-snap-align: start;
       /* hepsine snap konumu */
     }
-
-    /* 2) Tam ekran yapmasını istediğiniz bölümler */
     .hero,
     #why-efficiency {
       height: 100vh;
     }
 
-    /* 3) Uzun içerikli bölümler (What We Do dahil) */
     #what-we-do,
     #team,
     #projects {
@@ -220,9 +177,7 @@
       text-decoration: none;
       transition: color 0.3s;
     }
-
     /* Header */
-    /* Header ve Navbar her zaman fixed */
     header {
       position: fixed;
       top: 0;
@@ -248,181 +203,170 @@
       /* daha büyük */
     }
 
-    /* ─── basic reset for nav ─── */
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
-/* always fixed header */
-#navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(230,235,224,0.7);
-  backdrop-filter: blur(8px);
-  padding: 1rem 2rem;
-  z-index: 1000;
-}
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(230, 235, 224, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
 
-/* nav-toggle button */
-#nav-toggle {
-  background: none; border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-  color: var(--nav-text);
-  display: inline-block;
-}
+    #nav-toggle {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--nav-text);
+      display: inline-block;
+    }
 
-/* hide menu by default */
-#main-nav {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: calc(100% + 0.25rem);
-  right: 0.5rem;
-  background: var(--nav-bg);
-  padding: 0.5rem;
-  border-radius: var(--nav-border-radius);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  max-width: 10rem;
-  overflow-y: auto;
-}
+    #main-nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% + 0.25rem);
+      right: 0.5rem;
+      background: var(--nav-bg);
+      padding: 0.5rem;
+      border-radius: var(--nav-border-radius);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 10rem;
+      overflow-y: auto;
+    }
 
-/* when open */
-#main-nav.open {
-  display: flex;
-}
+    #main-nav.open {
+      display: flex;
+    }
 
-/* each item */
-#main-nav li {
-  margin: 0;
-}
-#main-nav a,
-#main-nav button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--nav-bg);
-  color: var(--nav-text);
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--nav-border-radius);
-  transition: background 0.2s, transform 0.2s;
-}
-#main-nav a:hover,
-#main-nav button:hover {
-  background: var(--nav-hover-bg);
-  transform: translateY(-2px);
-}
+    #main-nav li {
+      margin: 0;
+    }
 
-/* ─── desktop: always show menu inline, hide hamburger ─── */
-@media (min-width: 768px) {
-  #nav-toggle {
-    display: none;
-  }
-  #main-nav {
-    display: flex !important;
-    position: static;
-    flex-direction: row;
-    background: none;
-    padding: 0;
-    gap: 1rem;
-    box-shadow: none;
-    max-width: none;
-  }
-}
+    #main-nav a,
+    #main-nav button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--nav-bg);
+      color: var(--nav-text);
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--nav-border-radius);
+      transition: background 0.2s, transform 0.2s;
+    }
 
-/* ─── mobile: hide text labels, only icons ─── */
-@media (max-width: 767px) {
-  .nav-label {
-    display: none;
-  }
-  /* shrink header padding a bit */
-  #navbar {
-    padding: 0.5rem 1rem;
-  }
-  .logo-text {
-    font-size: 1rem;
-  }
-}
+    #main-nav a:hover,
+    #main-nav button:hover {
+      background: var(--nav-hover-bg);
+      transform: translateY(-2px);
+    }
+
+    /* ─── desktop: always show menu inline, hide hamburger ─── */
+    @media (min-width: 768px) {
+      #nav-toggle {
+        display: none;
+      }
+
+      #main-nav {
+        display: flex !important;
+        position: static;
+        flex-direction: row;
+        background: none;
+        padding: 0;
+        gap: 1rem;
+        box-shadow: none;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .nav-label {
+        display: none;
+      }
+
+      #navbar {
+        padding: 0.5rem 1rem;
+      }
+
+      .logo-text {
+        font-size: 1rem;
+      }
+    }
 
 
     /* ─── Mobile Hamburger Menu Düzenleme ─── */
-@media (max-width: 767px) {
-  /* Nesnelere müdahale eden tüm eski width/height zorlamalarını kaldırın */
-  nav ul {
-    display: none;
-  }
-  nav ul.open {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-end !important;        /* içtekileri sağa yasla */
+    @media (max-width: 767px) {
+      nav ul {
+        display: none;
+      }
 
-    position: absolute !important;
-    top: calc(100% + 0.5rem) !important;     /* header’ın hemen altında */
-    right: 0.5rem !important;                /* tam sağa 0.5rem boşluk */
-
-    background: var(--nav-bg) !important;    /* tema rengiyle uyumlu */
-    padding: 0.5rem !important;
-    border-radius: var(--nav-border-radius) !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-
-    width: auto !important;                  /* içeriğe göre küçülsün */
-    max-width: 10rem !important;             /* daha kompakt bir üst sınır */
-    height: auto !important;                 /* yüksekliği içeriğe bırak */
-    max-height: calc(100vh - 4rem) !important; /* viewport’a sığmıyorsa scroll */
-    overflow-y: auto !important;
-  }
-
-  nav ul.open li {
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  nav ul.open li a,
-  nav ul.open li button {
-    display: block !important;
-    width: 100% !important;                  /* butonlar kutuyu kaplasın */
-    text-align: right !important;
-    padding: 0.4rem 0.75rem !important;
-    margin-top: 0.25rem !important;
-    font-size: 0.9rem !important;
-  }
-}
+      nav ul.open {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
 
 
-  /* Header küçültme */
-  header {
-    padding: 0.3rem 1rem;
-  }
-  .logo span {
-    font-size: 1rem;
-  }
+        position: absolute !important;
+        top: calc(100% + 0.5rem) !important;
+        right: 0.5rem !important;
+        background: var(--nav-bg) !important;
+        padding: 0.5rem !important;
+        border-radius: var(--nav-border-radius) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 
+        width: auto !important;
+        max-width: 10rem !important;
+        height: auto !important;
+        max-height: calc(100vh - 4rem) !important;
+        overflow-y: auto !important;
+      }
+
+      nav ul.open li {
+        width: 100% !important;
+        margin: 0 !important;
+      }
+
+      nav ul.open li a,
+      nav ul.open li button {
+        display: block !important;
+        width: 100% !important;
+        text-align: right !important;
+        padding: 0.4rem 0.75rem !important;
+        margin-top: 0.25rem !important;
+        font-size: 0.9rem !important;
+      }
+    }
+
+    header {
+      padding: 0.3rem 1rem;
+    }
+    .logo span {
+      font-size: 1.4rem;
+    }
 
     @media (max-width: 767px) {
-
-      /* 1) Header’ın yatay padding’ini daralt */
       header {
         padding: 0.5rem 1rem !important;
       }
-
-      /* 2) Logo metnini küçült */
       header .logo span {
         font-size: 1rem !important;
       }
-
-      /* 3) Mobil menünün genişliğini sınırla (%80’e düşür) */
       nav ul.open {
         width: 80% !important;
       }
-
-      /* 4) Menü öğelerinin padding ve font-size’ını küçült */
       nav ul.open li a,
       nav ul.open li button {
         padding: 0.5rem 0.75rem !important;
@@ -431,10 +375,6 @@ nav ul {
     }
 
 
-
-
-
-    /* Buraya ekleyin: */
     #lang-toggle {
       display: flex;
       align-items: center;
@@ -460,7 +400,6 @@ nav ul {
 
     .lang-label.active {
       opacity: 1;
-      /* color: var(--heading-color); isteğe bağlı */
     }
 
     .separator {
@@ -487,7 +426,6 @@ nav ul {
       transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    /* Hover & Aktif Durumu */
     nav a:hover,
     nav button:hover {
       background-color: var(--nav-hover-bg);
@@ -495,9 +433,7 @@ nav ul {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
-    /* Responsive aralıkta gerekirse küçültme */
     @media (max-width: 768px) {
-
       nav a,
       nav button {
         padding: 0.4rem 0.75rem;
@@ -510,10 +446,8 @@ nav ul {
       align-items: center;
       gap: 0.5rem;
       margin-left: -20px;
-      /* İhtiyacınıza göre “-10px” ile “-30px” arası deneyin */
     }
 
-    /* Logo için mod bazlı görünürlük */
     .logo img {
       height: 50px;
       vertical-align: middle;
@@ -553,7 +487,6 @@ nav ul {
       background-position: center;
     }
 
-    /* olması gereken (doğru): */
     body.light .hero {
       background: url('images/hero.jpg') center/cover no-repeat;
     }
@@ -574,27 +507,19 @@ nav ul {
       color: #FFFFFF !important;
     }
 
-    /* Hero başlığını sola hizalamak için */
+
     .hero .content h1 {
       text-align: left;
       margin-left: 0;
-      /* Varsayılan içerik kenar boşluğunu kaldırın */
       max-width: 800px;
       line-height: 1.1;
-      /* 1.1–1.2 arası değerler genellikle idealdir */
     }
-
-    /* İsteğe bağlı: genişliği sınırlayarak satır uzunluğunu kontrol edin */
-
 
     .hero .content p.hero-description {
       text-align: left;
       max-width: 600px;
-      /* isterseniz genişliği de sınırlandırın */
       margin: 1rem 0 1rem 0;
-      /* üst ve alt boşlukları ayarlayın */
       font-size: 1.1rem;
-      /* orantılı bir boyut */
       line-height: 2;
     }
 
@@ -626,31 +551,23 @@ nav ul {
       font-size: 1.25rem;
     }
 
-    /* Hero bölümündeki Vizyonumuz paragrafı */
     .hero .vision {
       text-align: left;
-      /* Sola hizalama */
       font-style: italic;
-      /* İtalik */
       font-weight: bold;
-      /* Kalın */
       font-size: 0.9rem;
-      /* İhtiyaç varsa boyutu da koruyabilirsiniz */
       color: rgb(255, 255, 255);
       margin-top: 1rem;
       max-width: 600px;
       line-height: 1.5;
     }
 
-    /* 2) İçerik kutusunu nötr siyaha yakın yapın */
     .hero .content {
       background: rgba(0, 0, 0, 0.4);
-      /* %50 opak siyah */
       padding: 2rem;
       border-radius: 16px;
     }
 
-    /* 3) Metinleri kesin beyaz, gölgeli tutun */
     .hero .content h1,
     .hero .content p,
     .hero .vision {
@@ -658,8 +575,6 @@ nav ul {
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
     }
 
-
-    /* ——— Base Button Style ——— */
     .btn {
       background-color: var(--heading-color);
       color: var(--bg-color);
@@ -674,18 +589,14 @@ nav ul {
       background-color: var(--accent-color);
     }
 
-    /* ——— Hero Buttons ——— */
     .hero .btn {
-      /* Beyaz sınır eklendi */
       border: 1.5px solid #fff;
     }
 
     .hero .btn:hover {
-      /* Hover’da da beyaz sınır kalsın */
       border-color: #fff;
     }
 
-    /* ——— Button Group Layout ——— */
     .btn-group {
       display: flex;
       width: 100%;
@@ -693,21 +604,15 @@ nav ul {
       margin-top: 1rem;
     }
 
-    /* ——— Download Butonu: Yeşil Tema ——— */
     .btn-download {
       background-color: #4b4b4b;
-      /* Yeşil dolgu */
       color: #FFFFFF;
-      /* Beyaz yazı */
       border: 2px solid #3c3c3c;
-      /* Yeşil çerçeve */
       margin-left: auto;
-      /* Sağ kenara it */
     }
 
     .btn-download:hover {
       background-color: var(--heading-color);
-      /* Koyu yeşil hover */
       border-color: var(--heading-color);
     }
 
@@ -715,21 +620,16 @@ nav ul {
     /* — Emissions & Investments bölümü tam ekran, taşma yok — */
     #why-efficiency {
       height: 100vh;
-      /* Tam ekran yüksekliği */
       padding: 8rem 1rem 1rem;
-      /* İç boşlukları sıfırla */
       background: var(--bg-color);
       overflow: hidden;
-      /* Taşmayı engelle */
     }
 
     .we-container {
       display: flex;
       height: 100%;
-      /* parent’ın tüm yüksekliğini kullan */
       gap: 2rem;
       margin: 0 auto;
-      /* yatayda ortala */
       max-width: 1200px;
       box-sizing: border-box;
     }
@@ -738,11 +638,10 @@ nav ul {
     .we-carousel {
       flex: 1;
       padding: 2rem;
-      /* iç boşluk */
       box-sizing: border-box;
     }
 
-    /* ——— Subtle Pulsing Border ——— */
+
     @keyframes pulseBorder {
 
       0%,
@@ -757,21 +656,15 @@ nav ul {
 
     .we-carousel {
       position: relative;
-      /* pseudo-element’ten önce yerleşim için */
       border: 2px solid transparent;
-      /* önce şeffaf koyalım */
       border-radius: 12px;
-      /* mevcut radius’unuzu kullanın */
       animation: pulseBorder 3s ease-in-out infinite;
     }
 
-    /* Carousel sütununu da tam yükseklik yap */
     .we-carousel {
-      /* 1) Flex öğesi olarak sıfır esneme, 584px sabit genişlik */
       flex: 0 0 584px;
       max-width: 584px;
 
-      /* 2) Yüksekliği viewport’un tamamından 8rem+1rem (128px+16px=144px) çıkarmak */
       height: calc(100vh - 144.8px);
 
       position: relative;
@@ -781,29 +674,23 @@ nav ul {
       padding: 0;
     }
 
-    /* Slaytlar kutusunu da tam yükseklik/yatay genişlik yapın */
     .we-slides {
       position: absolute;
-      /* konteyner’e sabitlenir */
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       display: flex;
       margin: 0;
-      /* dış boşlukları kaldır */
       transition: transform 0.5s ease;
     }
 
-    /* 2. Görsellerin de her koşulda tam kaplaması için */
     .we-slides img {
       flex: 0 0 100%;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* <-- burayı değiştirin */
       background: none;
-      /* kenarlarda boşluk olsun diye arkaplan verin */
       display: block;
     }
 
@@ -830,14 +717,12 @@ nav ul {
 
     @media (max-width: 768px) {
 
-      /* 1) Section içeriğe göre büyüsün */
       #why-efficiency {
         height: auto !important;
         overflow: visible !important;
         padding-bottom: 1rem !important;
       }
 
-      /* 2) Container dikey, içeriğe göre yüksekliği auto */
       #why-efficiency .we-container {
         display: flex !important;
         flex-direction: column !important;
@@ -847,14 +732,14 @@ nav ul {
         gap: 0 !important;
       }
 
-      /* 3) Metin bloğu natural boyutta */
+
       #why-efficiency .we-text {
         flex: 0 0 auto !important;
         padding: 1rem !important;
         overflow: visible !important;
       }
 
-      /* 4) Carousel içeriğe uyumlu yükseklik, overflow-x için gizleme */
+
       #why-efficiency .we-carousel {
         flex: 0 0 auto !important;
         width: 100% !important;
@@ -867,7 +752,6 @@ nav ul {
         animation: none !important;
       }
 
-      /* 5) Slaytlar yatayda kaymaya devam etsin */
       #why-efficiency .we-slides {
         position: relative !important;
         display: flex !important;
@@ -877,7 +761,6 @@ nav ul {
         transition: transform 0.5s ease !important;
       }
 
-      /* 6) Görseller full-width, otomatik height */
       #why-efficiency .we-slides img {
         flex: 0 0 100% !important;
         width: 100% !important;
@@ -886,7 +769,6 @@ nav ul {
         display: block !important;
       }
 
-      /* 7) Noktalar hâlâ carousel’in altında görünsün */
       #why-efficiency .we-dots {
         position: absolute !important;
         bottom: 0.75rem !important;
@@ -900,8 +782,6 @@ nav ul {
 
 
     /* ─── “What Do We Do?” Bölümü ───────────────────────────────────────────────── */
-
-    /* Container ve Başlık */
     #what-we-do {
       padding: 2rem 0;
       box-sizing: border-box;
@@ -912,7 +792,6 @@ nav ul {
       display: none;
     }
 
-    /* ─── Sekme Butonları ─── */
     .toggle-buttons {
       display: inline-flex;
       gap: 1rem;
@@ -936,14 +815,13 @@ nav ul {
       transform: translateY(-2px);
     }
 
-    /* ─── View Toggle Konteyneri ─── */
     .view-toggle-container {
       width: 90%;
       margin: 0 auto 2rem;
       text-align: left;
     }
 
-    /* ─── Butonunuz ─── */
+
     #view-toggle {
       display: inline-flex;
       align-items: center;
@@ -960,7 +838,6 @@ nav ul {
       transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
 
-      /* — animasyon için gerekli: */
       position: relative;
       overflow: hidden;
     }
@@ -984,7 +861,7 @@ nav ul {
       opacity: 0.3;
     }
 
-    /* ─── Buton etrafındaki SVG sınır ve İyileştirilmiş Animasyon ─── */
+
     #view-toggle .btn-border {
       position: absolute;
       top: 0;
@@ -996,16 +873,12 @@ nav ul {
       animation: rotate-border 10s linear infinite;
     }
 
-    /* ─── Buton etrafındaki SVG sınır ve blink animasyonu ─── */
     #view-toggle .btn-border rect {
       fill: none;
       stroke: #ffffff;
-      /* Beyaz çizgi */
       stroke-width: 2px;
       rx: var(--nav-border-radius);
       ry: var(--nav-border-radius);
-      /* dash desenini koruyalım */
-      /* Blink animasyonu */
       animation: blink-border 2s ease-in-out infinite;
     }
 
@@ -1014,20 +887,13 @@ nav ul {
       0%,
       100% {
         stroke-opacity: 0;
-        /* Görünmez */
       }
 
       50% {
         stroke-opacity: 1;
-        /* Tam görünür */
       }
     }
 
-
-
-
-
-    /* Kart Wrapper ve Grid Düzeni */
     .cards-wrapper {
       display: grid;
       place-items: center;
@@ -1045,7 +911,7 @@ nav ul {
       display: none;
     }
 
-    /* Flip-Card Genel Ayarları */
+
     .flip-card {
       perspective: 1000px;
     }
@@ -1074,41 +940,28 @@ nav ul {
     }
 
 
-    /* ─── What Do We Do? Butonları Sola Yasla ve Boyutunu Küçült ───────────────── */
     #what-we-do .toggle-buttons {
       display: flex;
-      /* inline-flex -> flex */
       justify-content: flex-start;
-      /* butonları sola yaslar */
       width: 90%;
-      /* cards-wrapper ile aynı genişlik */
       margin: 0 auto 2rem;
-      /* yatayda ortala, alt boşluk 2rem */
       gap: 0.75rem;
-      /* butonlar arası boşluğu koru veya değiştir */
     }
 
     #what-we-do .toggle-buttons button {
       padding: 0.5rem 1rem;
-      /* butonları biraz küçült */
       font-size: 0.9rem;
-      /* yazı boyutunu düşür */
     }
 
     #what-we-do .view-toggle-container {
       margin-top: 4rem;
-      /* eski h2’nin margin-top:4rem’ini bu satırla koruduk */
     }
 
-    /* 3) Butonu büyütmek için padding ve font-size arttır */
     #what-we-do #view-toggle {
       padding: 1rem 2rem;
-      /* dikeyde 1rem, yatayda 2rem */
       font-size: 1.0rem;
-      /* yazı boyutu %25 artırıldı */
     }
 
-    /* Kart Arka Yüzü */
     .flip-card-back {
       transform: rotateY(180deg);
       display: flex;
@@ -1122,7 +975,6 @@ nav ul {
       padding: 1rem;
     }
 
-    /* Kart Görseli ve Bilgi Kutusu */
     .intervention-card {
       position: relative;
       width: 100%;
@@ -1153,29 +1005,21 @@ nav ul {
     }
 
 
-
-    /* 1) Kart altındaki info yazısını her zaman okunaklı kılmak */
     .intervention-card .info {
-      /* Eskiden burada var(--bg-color) vardı, onu yerine metin rengimizi kullanalım */
       color: var(--text-color) !important;
     }
 
-
-    /* Kart altı info kutusundaki yazıları küçültme */
     #what-we-do .intervention-card .info {
       padding: 0.5rem !important;
-      /* Alt kutunun yüksekliğini biraz azalt */
     }
 
     #what-we-do .intervention-card .info h3 {
       font-size: 1rem !important;
-      /* Başlık boyutu, önceki ~1.25rem yerine */
       line-height: 1.1 !important;
     }
 
     #what-we-do .intervention-card .info p {
       font-size: 0.8rem !important;
-      /* Açıklama metni, önceki ~1rem yerine */
       line-height: 1.1 !important;
       margin-top: 0.25rem !important;
     }
@@ -1185,7 +1029,6 @@ nav ul {
       color: #FFFFFF !important;
     }
 
-    /* Başlık ve paragraf için de beyazı zorla */
     body:not(.dark) .intervention-card .info h3,
     body:not(.dark) .intervention-card .info p {
       color: #FFFFFF !important;
@@ -1238,12 +1081,9 @@ nav ul {
 
 
     #what-we-do .cards .flip-card {
-      /* Kartların görünür olması için yükseklik */
       height: 240px;
     }
 
-    /* Eğer görsellerin yüksekliklerini otomatik almak istersen,
-      intervention-card içindekileri absolute yerine static yapabilirsin: */
     #what-we-do .intervention-card img {
       position: static;
       width: 100%;
@@ -1253,24 +1093,18 @@ nav ul {
 
     @media (max-width: 768px) {
 
-      /* 1) Wrapper’ı tek hücrelik grid’e dönüştürüp 
-        tüm .cards’ları aynı hücreye yerleştir */
       #what-we-do .cards-wrapper {
         display: grid !important;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
       }
 
-      /* 2) Sadece visible (hidden olmayan) .cards set’lerini 
-        2 sütunlu grid yap ve wrapper’ın 1. hücresine yerleştir */
       #what-we-do .cards:not([hidden]) {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 1rem !important;
-
         grid-column: 1;
         grid-row: 1;
-
         justify-self: center;
         width: 90%;
         margin: 0 auto;
@@ -1300,7 +1134,6 @@ nav ul {
       transform: translateY(-2px);
     }
 
-    /* Kartlar aynı grid’de dizilsin */
     .cards-wrapper {
       display: grid;
       place-items: center;
@@ -1313,7 +1146,6 @@ nav ul {
       width: 90%;
     }
 
-    /* Gizli kart seti */
     .cards[hidden] {
       display: none;
     }
@@ -1342,52 +1174,41 @@ nav ul {
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
 
-    /* 1) Wrapper: sabit yükseklik + taşanı gizle */
     .project-card .img-wrapper {
       width: 100%;
       height: 355px;
-      /* Soldaki görselin gerçek yüksekliği */
       overflow: hidden;
     }
 
-    /* 2) Resim: yükseklik ekseninde ölçeklensin, orantı bozulmasın */
     .project-card .img-wrapper img {
       height: 100%;
       width: auto;
       display: block;
     }
 
-    /* İçerik kısmı */
     .card-content {
       padding: 1.5rem;
     }
 
-    /* Alt başlık paragrafı */
     .project-card .card-content p {
       white-space: pre-line;
     }
 
     @media (max-width: 768px) {
-      /* Mevcut responsive kuralınızın sonuna ekleyin */
-
-      /* Grid aralığını biraz sıkıştır */
       .projects-grid {
         gap: 1rem;
         padding: 0 1rem;
       }
 
-      /* Kart genişliğini %100 yerine max-width ile sınırla */
       .project-card {
         max-width: 100%;
         margin: 0 auto 1rem;
       }
 
-      /* Görsel wrapper’ının yüksekliğini düşür */
       .project-card .img-wrapper {
         height: 200px !important;
       }
 
-      /* İçerik padding’ini küçült ve metin boyutlarını ayarla */
       .project-card .card-content {
         padding: 0.75rem;
       }
@@ -1399,40 +1220,30 @@ nav ul {
       .project-card .card-content p {
         font-size: 0.9rem;
         -webkit-line-clamp: 2;
-        /* satır sayısını 2 ile sınırla */
       }
     }
 
-
-    /* 4) Alt başlık metin stili: taşmayı önle, gerektiğinde kır */
     .project-card .card-content p {
       margin-top: 0.5rem;
       line-height: 1.5;
-      /* Esnek satır kırma */
       word-break: break-word;
-      /* Gerektiğinde satır sonunda ... koyacaksanız: */
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
-      /* Maksimum 3 satır */
       -webkit-box-orient: vertical;
     }
 
     /* ─── Projects Kart Hover & Buton Animasyonları ───────────────────────── */
-
-    /* Kart kapsayıcısına geçiş ekleyin */
     .project-card {
       position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Hover’da kart yukarı kalksın ve gölgesi artsın */
     .project-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
     }
 
-    /* Kart içindeki resme zoom efekti */
     .project-card img {
       transition: transform 0.3s ease;
     }
@@ -1441,7 +1252,6 @@ nav ul {
       transform: scale(1.05);
     }
 
-    /* 1. Genel (seçimsiz) durum: hafif soluk/gölgesiz */
     .project-card {
       filter: grayscale(25%) opacity(0.85);
       transition:
@@ -1450,14 +1260,12 @@ nav ul {
         filter 0.3s ease;
     }
 
-    /* 2. Hover (üzerine gelince): renkli ve hafif yukarı kalkmış */
     .project-card:hover {
       filter: grayscale(0%) opacity(1);
       transform: translateY(-6px);
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
     }
 
-    /* 3. Seçili (tıklandığında .selected eklenecek): kalıcı vurgulu */
     .project-card.selected {
       filter: none;
       opacity: 1;
@@ -1466,34 +1274,22 @@ nav ul {
       border: 2px solid var(--heading-color);
     }
 
-    /* 4. Seçili iken üzerine gelme daha derinleşsin istersen: */
     .project-card.selected:hover {
       transform: translateY(-10px);
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
     }
 
-    /* Buton hover’ları zaten daha önce eklendiği için ekstra bir şey gerekmez */
-
-
     /* ─── Proje Kartı “Visit Site” Butonları Özelleştirmesi ────────────────── */
     .project-card .btn-details {
       display: inline-block;
       background: transparent;
-      /* Şeffaf zemin */
       color: var(--heading-color);
-      /* Kırmızı vurgu rengi */
       border: 2px solid var(--heading-color);
-      /* İnce çerçeve */
       padding: 0.5rem 1rem;
-      /* Konforlu iç boşluk */
       border-radius: 0.5rem;
-      /* Hafif yuvarlak köşeler */
       font-weight: 600;
-      /* Kalın yazı */
       text-transform: uppercase;
-      /* Hepsi büyük harf */
       letter-spacing: 0.025em;
-      /* Biraz harf aralığı */
       position: relative;
       overflow: hidden;
       transition:
@@ -1502,14 +1298,12 @@ nav ul {
         transform 0.2s ease;
     }
 
-    /* Hover’da dolu zemin ve yukarı kalkma */
     .project-card .btn-details:hover {
       background-color: var(--heading-color);
       color: var(--bg-color);
       transform: translateY(-2px);
     }
 
-    /* Butonun sonuna küçücük bir ok ikonu ekleyelim */
     .project-card .btn-details::after {
       content: "→";
       display: inline-block;
@@ -1519,13 +1313,11 @@ nav ul {
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    /* Hover’da okun belirip kayması */
     .project-card .btn-details:hover::after {
       opacity: 1;
       transform: translateX(0);
     }
 
-    /* Mobilde biraz yumuşatmak isterseniz */
     @media (max-width: 768px) {
       .project-card .btn-details {
         padding: 0.4rem 0.8rem;
@@ -1540,10 +1332,7 @@ nav ul {
       padding: 4rem 2rem 4rem;
       background: var(--bg-color);
       scroll-snap-align: start;
-      /* Keep this to snap the team section itself */
-      /* Adjusted to match the project card's scroll-margin-top, or slightly less if desired */
       scroll-margin-top: calc(6rem + 1.5rem);
-      /* Header height + a buffer for team section */
     }
 
     #team h2 {
@@ -1582,16 +1371,13 @@ nav ul {
     .member-card img {
       border: 2px solid transparent;
       border-radius: 50%;
-      /* Yuvarlak fotoğraf için */
       transition: border-color 0.3s;
     }
 
-    /* 2) Light mode’da fotoğrafın etrafını nav-bg rengiyle çiz */
     body:not(.dark) .member-card img {
       border-color: var(--nav-bg);
     }
 
-    /* 3) Dark mode’da photoğrafın etrafını heading-color (kırmızı) ile çiz */
     body.dark .member-card img {
       border-color: var(--heading-color);
     }
@@ -1626,7 +1412,6 @@ nav ul {
       padding: 0 1rem;
     }
 
-    /* Responsive */
     @media (max-width: 1024px) {
       .member-card {
         flex: 0 0 33.333%;
@@ -1638,7 +1423,6 @@ nav ul {
         flex: 0 0 50%;
       }
 
-      /* Ensure mobile team section also has correct scroll-margin-top */
       #team {
         scroll-margin-top: calc(4rem + 1rem);
         /* Adjust based on mobile header height + buffer */
@@ -1668,31 +1452,24 @@ nav ul {
       font-size: 2rem;
     }
 
-    /* (responsive ayarlarınız da aynı kalabilir) */
-
-    /* ─── Publications (Desktop-First) ─── */
     #publications {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      /* Başlık en üste değil, akışa göre yerleşsin */
       padding: 2rem;
       width: 1440px;
       height: calc(100vh - var(--header-height));
       margin: 0 auto;
-      /* Ortalamak için ekleyebilirsiniz */
     }
 
     #publications h2 {
       margin-top: 6rem;
-      /* Başlığı aşağıya taşı */
       font-size: 2rem;
       color: var(--heading-color);
     }
 
     #publications .publications-list {
       margin-top: 2rem;
-      /* Başlığın altındaki boşluk */
       max-width: 1200px;
       gap: 2rem;
       list-style: none;
@@ -1701,20 +1478,16 @@ nav ul {
 
     #publications .publication {
       margin-bottom: 2rem;
-      /* Öğeler arası boşluk */
       line-height: 1.2;
       margin-left: 4rem;
-      /* Sola hizalama için */
     }
 
-    /* ─── Mobil Uyarlama ─── */
     @media (max-width: 768px) {
       #publications {
         width: 100%;
         height: auto;
         padding: 1rem;
         align-items: center;
-        /* Başlık ve listeyi ortalamak için */
       }
 
       #publications h2 {
@@ -1725,7 +1498,6 @@ nav ul {
 
       #publications .publications-list {
         display: grid;
-        /* Tek sütun grid */
         grid-template-columns: 1fr;
         gap: 1rem;
         margin-top: 1rem;
@@ -1742,11 +1514,10 @@ nav ul {
 
       #publications .publication a {
         word-break: break-word;
-        /* Uzun link metinlerini kır */
       }
     }
 
-    /* ─── Contact Bölümü (JeoIT tarzı iki sütunlu) ─────────────────────────── */
+    /* ─── Contact Bölümü  ─────────────────────────── */
     #contact {
       background: var(--bg-color);
     }
@@ -1849,7 +1620,6 @@ nav ul {
       display: flex;
       align-items: center;
       gap: 12rem;
-      /* logolar arası mesafe */
       animation: scroll-logos 30s linear infinite;
     }
 
@@ -1858,7 +1628,6 @@ nav ul {
       width: 120px;
       height: 120px;
       border-radius: 12px;
-      /* köşe yarıçapı */
       background: transparent;
       display: flex;
       align-items: center;
@@ -1870,10 +1639,8 @@ nav ul {
       width: 80%;
       height: 80%;
       object-fit: contain;
-      /* tüm logo içeriğini göster */
     }
 
-    /* ─── Kesintisiz Döngü Animasyonu ─────────────────────────────────────── */
     @keyframes scroll-logos {
       0% {
         transform: translateX(0);
@@ -1884,7 +1651,6 @@ nav ul {
       }
     }
 
-    /* ─── Mobil İçin ─────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       .partners-logos {
         gap: 2rem;
@@ -1920,25 +1686,20 @@ nav ul {
       display: flex;
       justify-content: space-between;
       align-items: stretch;
-      /* <-- EN ÖNEMLİ SATIR */
       gap: 4rem;
       margin-left: 4rem;
     }
 
     .footer-col {
       flex: 1 1 30%;
-      /* ... */
     }
 
     .footer-col.address,
     .footer-col.contact {
       margin-top: 3rem;
-      /* İstediğin kadar ayarlayabilirsin */
       margin-left: 4rem;
     }
 
-
-    /* eğer contact kolonu veya başka bir yere yanlışlıkla background eklediyseniz, silin: */
     #site-footer .footer-col {
       background: transparent;
     }
@@ -1978,7 +1739,6 @@ nav ul {
 
     @media (max-width: 768px) {
 
-      /* Footer container’ı dikey stack’e al */
       #site-footer .footer-container {
         display: flex !important;
         flex-direction: column !important;
@@ -1987,29 +1747,23 @@ nav ul {
         padding: 1rem !important;
       }
 
-      /* Her bir kolonu tam genişlikte blok yap, arada boşluk bırak */
       #site-footer .footer-col {
         width: 100% !important;
         margin: 0 0 1.5rem !important;
         text-align: center !important;
       }
 
-      /* Logo’yu da ortala */
       #site-footer .footer-col.about .footer-logo {
         margin: 0 auto 1rem !important;
         display: block !important;
       }
 
-      /* Alt kopyayı ortaya hizala */
       .footer-copy {
         text-align: center !important;
         margin-top: 1rem !important;
       }
     }
 
-
-
-    /* Light modda transparent outline */
     .intervention-card,
     .project-card {
       outline: 2px solid transparent;
@@ -2017,13 +1771,11 @@ nav ul {
       transition: outline-color 0.3s, outline-offset 0.3s;
     }
 
-    /* Dark modda kırmızı outline */
     body.dark .intervention-card,
     body.dark .project-card {
       outline-color: var(--heading-color);
     }
 
-    /* —— Responsive Eklentiler —— */
     @media (max-width: 1024px) {
       section {
         height: auto;
@@ -2113,7 +1865,6 @@ nav ul {
 
     /* ─── Modal Overlay’ın tamamı kaplaması ve orta-nokta yapılması ───────────────── */
     .modal-overlay {
-      /* Başlangıçta gizli */
       display: none;
       position: fixed;
       top: 0;
@@ -2126,26 +1877,22 @@ nav ul {
       z-index: 10000;
     }
 
-    /* hidden attribute’una saygı göster */
     .modal-overlay:not([hidden]) {
       display: flex;
     }
 
     .modal-overlay {
       background: rgba(255, 255, 255, 0.6);
-      /* Mevcut da bu, istersen "0.7" ya da "#333" gibi değiştirebilirsin */
     }
 
-    /* ─── Modal’i genişlet ve grid’e sütun hakkı ver ───────────────── */
     .modal {
-      /* Mevcut max-width/max-height’i koruyup, genişliği de %80 viewport yapalım */
       width: 80vw;
       max-width: 800px;
       background-color: #ab9e9e;
       border-radius: 16px;
     }
 
-    /* ─── Modal içindeki kartları yan yana diz: 2 sütun örneği ───────────────── */
+
     .modal-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -2154,27 +1901,15 @@ nav ul {
       align-items: start;
       width: 90%;
       margin: 2rem auto;
-      /* üst-alt boşluk ve yatay ortalama */
       padding-bottom: 2rem;
-
-      /* aşağıdaki satırları ekleyin: */
       justify-content: start;
-      /* ızgarayı sola yasla */
       padding-left: 0rem;
-      /* sol taraftan 2rem boşluk bırak */
     }
 
-    /* İsterseniz 3 sütun için:
-      grid-template-columns: repeat(3, 1fr);
-    */
-
-
     .modal-card {
-      /* sabit bir genişlik sınırı */
       max-width: 200px;
       flex-shrink: 0;
       background: #f9f9f9;
-      /* isterseniz hafif bir arkaplan */
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       cursor: pointer;
@@ -2194,61 +1929,44 @@ nav ul {
       margin: 0 auto 0.5rem;
     }
 
-    /* 1) Modal kutusunu göreli konuma alalım ki içindekileri mutlak konumlayabilelim */
     .modal {
       position: relative;
     }
 
-    /* 2) Başlığı büyüt ve ortaya hizala */
     .modal h3 {
       font-size: 3rem;
-      /* istediğin değere çıkarabilirsin */
       text-align: center;
       margin-top: 2rem;
       color: white;
     }
 
-    /* 3) Kapatma butonunu sağ üst köşeye al ve ölçeklendir */
     .modal-close {
       position: absolute;
-      /* modal kutusunun içinde konumlandır */
       top: 1rem;
-      /* üstten boşluk */
       right: 1rem;
-      /* sağdan boşluk */
       width: 2.5rem;
-      /* genişlik */
       height: 2.5rem;
-      /* yükseklik */
       padding: 0;
-      /* iç boşluk kaldır */
       border: none;
-      /* çerçeve yok */
       border-radius: 50%;
-      /* tam yuvarlak */
       background: #fff;
-      /* beyaz zemin (isteğe göre değiştirin) */
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       display: flex;
-      /* içeriği ortalamak için flex */
       align-items: center;
       justify-content: center;
       font-size: 1.25rem;
-      /* “×” işaretinin büyüklüğü */
       color: #333;
-      /* işaret rengi */
       cursor: pointer;
       transition: background 0.2s;
     }
 
     .modal-close:hover {
       background: #f0f0f0;
-      /* hover’da biraz koyulaşsın */
     }
 
     @media (max-width: 768px) {
 
-      /* 1) Grid’i iki sütun, ama hücreler küçücük kalmasın */
+
       .modal-cards {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -2256,7 +1974,6 @@ nav ul {
         padding: 0.5rem !important;
       }
 
-      /* 2) Kart genişliğini biraz daha kısıtla, iç boşlukları daralt */
       .modal-card {
         width: 100% !important;
         max-width: 140px !important;
@@ -2268,14 +1985,12 @@ nav ul {
         align-items: center;
       }
 
-      /* 3) Görseli de biraz küçült, başlık için yer aç */
       .modal-card img {
         width: 100% !important;
         max-height: 80px !important;
         object-fit: contain !important;
       }
 
-      /* 4) Başlıklarda font ve satır yüksekliğini küçült, sarmayı destekle */
       .modal-card p {
         margin: 0.4rem 0 0 !important;
         font-size: 0.85rem !important;
@@ -2284,67 +1999,66 @@ nav ul {
         word-break: break-word !important;
       }
     }
-
-    /* —— /Responsive Eklentiler —— */
+    
   </style>
 </head>
 
 <body class="light" lang="en">
 
-<header id="navbar">
-  <div class="logo">
-    <img src="images/9.4.png" alt="Logo" class="logo-light">
-    <img src="images/9.8.png" alt="Logo" class="logo-dark">
-    <span class="logo-text">METU Urban Energy Transition &amp; Sustainability Lab.</span>
-  </div>
+  <header id="navbar">
+    <div class="logo">
+      <img src="images/9.4.png" alt="Logo" class="logo-light">
+      <img src="images/9.8.png" alt="Logo" class="logo-dark">
+      <span class="logo-text">METU Urban Energy Transition &amp; Sustainability Lab.</span>
+    </div>
 
-  <nav>
-    <!-- hamburger -->
-    <button id="nav-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
-      <i class="fas fa-bars"></i>
-    </button>
+    <nav>
+      <!-- hamburger -->
+      <button id="nav-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
 
-    <!-- actual menu -->
-    <ul id="main-nav">
-      <li>
-        <a href="#home">
-          <i class="fas fa-home"></i>
-          <span class="nav-label" data-tr="Ana Sayfa" data-en="Home">Home</span>
-        </a>
-      </li>
-      <li>
-        <a href="#team">
-          <i class="fas fa-users"></i>
-          <span class="nav-label" data-tr="Ekibimiz" data-en="About Us">About Us</span>
-        </a>
-      </li>
-      <li>
-        <a href="#publications">
-          <i class="fas fa-book-open"></i>
-          <span class="nav-label" data-tr="Yayınlar" data-en="Publications">Publications</span>
-        </a>
-      </li>
-      <li>
-        <a href="#contact">
-          <i class="fas fa-envelope"></i>
-          <span class="nav-label" data-tr="İletişim" data-en="Contact">Contact</span>
-        </a>
-      </li>
-      <li>
-        <button id="theme-toggle" aria-label="Temayı değiştir">
-          <i id="theme-icon" class="fas fa-moon"></i>
-        </button>
-      </li>
-      <li>
-        <button id="lang-toggle" aria-label="Dili değiştir">
-          <span class="lang-label" data-lang="en">EN</span>
-          <span class="separator">/</span>
-          <span class="lang-label" data-lang="tr">TR</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
-</header>
+      <!-- actual menu -->
+      <ul id="main-nav">
+        <li>
+          <a href="#home">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-tr="Ana Sayfa" data-en="Home">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#team">
+            <i class="fas fa-users"></i>
+            <span class="nav-label" data-tr="Ekibimiz" data-en="About Us">About Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#publications">
+            <i class="fas fa-book-open"></i>
+            <span class="nav-label" data-tr="Yayınlar" data-en="Publications">Publications</span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact">
+            <i class="fas fa-envelope"></i>
+            <span class="nav-label" data-tr="İletişim" data-en="Contact">Contact</span>
+          </a>
+        </li>
+        <li>
+          <button id="theme-toggle" aria-label="Temayı değiştir">
+            <i id="theme-icon" class="fas fa-moon"></i>
+          </button>
+        </li>
+        <li>
+          <button id="lang-toggle" aria-label="Dili değiştir">
+            <span class="lang-label" data-lang="en">EN</span>
+            <span class="separator">/</span>
+            <span class="lang-label" data-lang="tr">TR</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
 
 
@@ -3341,38 +3055,38 @@ nav ul {
     track.innerHTML += track.innerHTML;
   </script>
 
-<script>
-  // Mobil hamburger menü aç/kapa ve dış tıklama/scroll ile kapanma
-  (function() {
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu   = document.querySelector('nav ul');
+  <script>
+    // Mobil hamburger menü aç/kapa ve dış tıklama/scroll ile kapanma
+    (function () {
+      const navToggle = document.getElementById('nav-toggle');
+      const navMenu = document.querySelector('nav ul');
 
-    // Toggle butonuna tıklayınca
-    navToggle.addEventListener('click', e => {
-      e.stopPropagation();
-      navMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
-    });
+      // Toggle butonuna tıklayınca
+      navToggle.addEventListener('click', e => {
+        e.stopPropagation();
+        navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+      });
 
-    // Sayfa herhangi bir yerine tıklandığında, eğer tıklanan nav içi değilse kapa
-    document.addEventListener('click', e => {
-      if (!navMenu.contains(e.target) && e.target !== navToggle) {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Scroll, wheel veya touchmove olduğunda da kapa
-    ['scroll', 'wheel', 'touchmove'].forEach(evt => {
-      window.addEventListener(evt, () => {
-        if (navMenu.classList.contains('open')) {
+      // Sayfa herhangi bir yerine tıklandığında, eğer tıklanan nav içi değilse kapa
+      document.addEventListener('click', e => {
+        if (!navMenu.contains(e.target) && e.target !== navToggle) {
           navMenu.classList.remove('open');
           navToggle.setAttribute('aria-expanded', 'false');
         }
-      }, { passive: true });
-    });
-  })();
-</script>
+      });
+
+      // Scroll, wheel veya touchmove olduğunda da kapa
+      ['scroll', 'wheel', 'touchmove'].forEach(evt => {
+        window.addEventListener(evt, () => {
+          if (navMenu.classList.contains('open')) {
+            navMenu.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        }, { passive: true });
+      });
+    })();
+  </script>
 
 </body>
 
