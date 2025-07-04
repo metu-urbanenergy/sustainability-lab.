@@ -328,6 +328,29 @@
         /* Sağ kenardan ekstra boşluk isterseniz */
       }
     }
+  @media (max-width: 767px) {
+    /* 1) Header’ın yatay padding’ini daralt */
+    header {
+      padding: 0.5rem 1rem !important;
+    }
+
+    /* 2) Logo metnini küçült */
+    header .logo span {
+      font-size: 1rem !important;
+    }
+
+    /* 3) Mobil menünün genişliğini sınırla (%80’e düşür) */
+    nav ul.open {
+      width: 80% !important;
+    }
+
+    /* 4) Menü öğelerinin padding ve font-size’ını küçült */
+    nav ul.open li a,
+    nav ul.open li button {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.9rem !important;
+    }
+  }
 
 
 
@@ -1144,8 +1167,25 @@
     }
 
     @media (max-width: 768px) {
-      .flip-card {
-        height: 200px;
+      /* Arka yüz metinlerini küçült */
+      #what-we-do .flip-card-back h3 {
+        font-size: 0.9rem !important;
+        line-height: 1.1 !important;
+      }
+      #what-we-do .flip-card-back p {
+        font-size: 0.7rem !important;
+        line-height: 1.2 !important;
+        margin: 0.25rem 0 !important;
+      }
+
+      /* Arka yüz padding’ini sıkılaştır */
+      #what-we-do .flip-card-back {
+        padding: 0.5rem !important;
+      }
+
+      /* Kartların minimum yüksekliğini arttır */
+      #what-we-do .cards .flip-card {
+        min-height: 260px !important;
       }
     }
 
