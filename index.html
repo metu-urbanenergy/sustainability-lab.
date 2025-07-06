@@ -875,6 +875,46 @@
         display: none;
       }
     }
+    /* ——— Mobile: we-slides ve team carousel yatay scroll + snap ——— */
+    @media (max-width: 768px) {
+      /* we-slides */
+      .we-carousel {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+      .we-slides {
+        display: flex !important;
+        scroll-padding: 0 1rem;
+      }
+      .we-slides img {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
+      /* team carousel */
+      .carousel-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+      .carousel-track {
+        display: flex !important;
+        scroll-padding: 0 1rem;
+      }
+      .member-card {
+        flex: 0 0 auto !important;
+        scroll-snap-align: start;
+      }
+
+      /* opsiyonel: scrollbar gizle */
+      .we-carousel::-webkit-scrollbar,
+      .carousel-container::-webkit-scrollbar {
+        display: none;
+      }
+    }
 
 
 
