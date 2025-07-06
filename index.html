@@ -826,96 +826,40 @@
       }
     }
 
-    /* 1) Ortak: momentum scrolling ve scroll-snap aktif et, native scrollbar’ı gizle */
-    .we-carousel,
-    .carousel-container {
-      overflow-x: auto;
-      /* yatayda scroll */
-      overflow-y: hidden;
-      /* dikey taşmayı kes */
-      -webkit-overflow-scrolling: touch;
-      /* iOS momentum scroll */
-      scroll-snap-type: x mandatory;
-      /* çocukları snap’le */
-
-      /* native scrollbar gizleme */
-      -ms-overflow-style: none;
-      /* IE 10+ */
-      scrollbar-width: none;
-      /* Firefox */
-    }
-
-    .we-carousel::-webkit-scrollbar,
-    .carousel-container::-webkit-scrollbar {
-      display: none;
-      /* Chrome, Safari, Edge */
-    }
-
-    /* 2) Flex düzeninde tut, snap sonrası boşluk ver */
-    .we-slides,
-    .carousel-track {
-      display: flex;
-      scroll-padding: 0 1rem;
-    }
-
-    /* 3) Her slayt/kart bir “snap point” olsun */
-    .we-slides img,
-    .member-card {
-      flex: 0 0 auto;
-      /* kendi içerik genişliğinde */
-      scroll-snap-align: start;
-      /* snap sonrası başlangıca yasla */
-    }
-
-    /* 4) Mobilde prev/next butonlarını gizle isterseniz */
+    
+    /* === We-carousel için yalnızca mobilde scroll-snap gerekiyorsa: === */
     @media (max-width: 768px) {
-
-      #prevBtn,
-      #nextBtn {
+      #why-efficiency .we-carousel {
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+      }
+      #why-efficiency .we-slides img {
+        scroll-snap-align: start;
+      }
+      #why-efficiency .we-carousel::-webkit-scrollbar {
         display: none;
       }
     }
-    /* ——— Mobile: we-slides ve team carousel yatay scroll + snap ——— */
+
+    /* === Team carousel’ün JS transform’uyla birlikte çalışması için: === */
+    /* carousel-container’ın normalde overflow:hidden olması gerekiyor — bu kuralı koruyun: */
+    .carousel-container {
+      overflow: hidden;
+    }
+
+    /* Mobilde isterseniz sadece scroll-snap ekleyebilirsiniz: */
     @media (max-width: 768px) {
-      /* we-slides */
-      .we-carousel {
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-      }
-      .we-slides {
-        display: flex !important;
-        scroll-padding: 0 1rem;
-      }
-      .we-slides img {
-        flex: 0 0 auto;
-        scroll-snap-align: start;
-      }
-
-      /* team carousel */
       .carousel-container {
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
         scroll-snap-type: x mandatory;
       }
-      .carousel-track {
-        display: flex !important;
-        scroll-padding: 0 1rem;
-      }
-      .member-card {
-        flex: 0 0 auto !important;
+      .carousel-track .member-card {
         scroll-snap-align: start;
       }
-
-      /* opsiyonel: scrollbar gizle */
-      .we-carousel::-webkit-scrollbar,
       .carousel-container::-webkit-scrollbar {
         display: none;
       }
     }
-
 
 
     /* ─── “What Do We Do?” Bölümü ───────────────────────────────────────────────── */
@@ -3037,328 +2981,218 @@
   </footer>
 
   <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) We-carousel
+  (function() {
+    const slides    = document.querySelector('.we-slides');
+    const imgs      = slides?.querySelectorAll('img') || [];
+    const dotsBox   = document.querySelector('.we-dots');
+    let idx = 0, carouselInterval;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const slides = document.querySelector('.we-slides');
-      const imgs = slides.querySelectorAll('img');
-      const dotsBox = document.querySelector('.we-dots');
-      let idx = 0, interval;
+    if (!slides || !dotsBox || imgs.length === 0) return;
 
-      // Dot’ları oluştur
-      imgs.forEach((_, i) => {
-        const d = document.createElement('span');
-        d.classList.add('dot');
-        if (i === 0) d.classList.add('active');
-        d.addEventListener('click', () => moveTo(i));
-        dotsBox.append(d);
-      });
-      const dots = dotsBox.querySelectorAll('.dot');
-
-      // Otomatik kaydırma
-      function start() {
-        interval = setInterval(() => moveTo((idx + 1) % imgs.length), 4000);
-      }
-      function stop() { clearInterval(interval); }
-
-      function moveTo(i) {
-        slides.style.transform = `translateX(-${i * 100}%)`;
-        dots[idx].classList.remove('active');
-        dots[i].classList.add('active');
-        idx = i;
-      }
-
-      start();
-      document.querySelector('.we-carousel')
-        .addEventListener('mouseenter', stop);
-      document.querySelector('.we-carousel')
-        .addEventListener('mouseleave', start);
+    // Dot’ları oluştur
+    imgs.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => moveSlide(i));
+      dotsBox.appendChild(dot);
     });
-  </script>
+    const dots = dotsBox.querySelectorAll('.dot');
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', () => {
-          // Tüm kartlardaki seçiliyi kaldır (tek seçim istiyorsan)
-          document.querySelectorAll('.project-card.selected')
-            .forEach(c => c.classList.remove('selected'));
+    function moveSlide(i) {
+      slides.style.transform = `translateX(-${i * 100}%)`;
+      dots[idx].classList.remove('active');
+      dots[i].classList.add('active');
+      idx = i;
+    }
+    function startCarousel() { carouselInterval = setInterval(() => moveSlide((idx + 1) % imgs.length), 4000); }
+    function stopCarousel()  { clearInterval(carouselInterval); }
 
-          // Bu karta seçiliyi ekle/çıkar
-          card.classList.toggle('selected');
-        });
-      });
-    });
-  </script>
+    startCarousel();
+    const carouselEl = document.querySelector('.we-carousel');
+    carouselEl.addEventListener('mouseenter', stopCarousel);
+    carouselEl.addEventListener('mouseleave', startCarousel);
+  })();
 
+  // 2) Project-card single-select
+  document.querySelectorAll('.project-card').forEach(card =>
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.project-card.selected')
+              .forEach(c => c.classList.remove('selected'));
+      card.classList.toggle('selected');
+    })
+  );
 
-
-
-  <script>
-    // ——— Çeviri ve Tema Yönetimi ———
+  // 3) Çeviri & Tema
+  (function() {
+    const themeBtn = document.getElementById('theme-toggle');
+    const langBtn  = document.getElementById('lang-toggle');
+    const themeIcon= document.getElementById('theme-icon');
 
     function updateLanguage() {
-      const lang = document.body.getAttribute('lang') || 'tr';
-
-      // 1) DATA-TR / DATA-EN ile işaretli tüm öğelerin metnini güncelle
+      const lang = document.body.lang || 'tr';
       document.querySelectorAll('[data-tr]').forEach(el => {
-        const key = lang === 'tr' ? 'data-tr' : 'data-en';
-        el.textContent = el.getAttribute(key);
+        el.textContent = el.getAttribute(lang === 'tr' ? 'data-tr' : 'data-en');
       });
-
-      // 2) Placeholder’ları çevir
       document.querySelectorAll('[data-tr-placeholder]').forEach(inp => {
-        const key = lang === 'tr' ? 'data-tr-placeholder' : 'data-en-placeholder';
-        inp.placeholder = inp.getAttribute(key);
+        inp.placeholder = inp.getAttribute(lang === 'tr' ? 'data-tr-placeholder' : 'data-en-placeholder');
       });
-
-      // 3) Dil butonundaki “EN / TR” vurgusunu ayarla
-      document.querySelectorAll('#lang-toggle .lang-label').forEach(el => {
-        el.classList.toggle('active', el.dataset.lang === lang);
-      });
-
-      // 4) Dil toggle aria-label’ini güncelle (isteğe bağlı)
-      document.getElementById('lang-toggle').setAttribute(
-        'aria-label',
-        lang === 'tr' ? 'Switch to English' : 'Türkçeye geç'
-      );
+      document.querySelectorAll('#lang-toggle .lang-label')
+              .forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
+      langBtn.setAttribute('aria-label', lang === 'tr' ? 'Switch to English' : 'Türkçeye geç');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // İlk yüklemede metinleri belirlenen dile göre ayarla
+    updateLanguage();
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeIcon.classList.toggle('fa-rotate-180');
+    });
+    langBtn.addEventListener('click', () => {
+      document.body.lang = (document.body.lang === 'en' ? 'tr' : 'en');
       updateLanguage();
-
-      // — Tema toggler
-      const themeBtn = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-icon');
-      themeBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        themeIcon.classList.toggle('fa-rotate-180');
-      });
-
-      // — Dil toggler
-      document.getElementById('lang-toggle').addEventListener('click', () => {
-        const current = document.body.getAttribute('lang') || 'tr';
-        const next = current === 'tr' ? 'en' : 'tr';
-        document.body.setAttribute('lang', next);
-        updateLanguage();
-      });
     });
+  })();
 
+  // 4) Team carousel
+  (function() {
+    const track     = document.querySelector('.carousel-track');
+    const container = document.querySelector('.carousel-container');
+    const prevBtn   = document.getElementById('prevBtn');
+    const nextBtn   = document.getElementById('nextBtn');
+    const items     = track ? Array.from(track.children) : [];
+    let perView = 1, maxIdx = 0, idx = 0;
 
+    if (!track || !container || !prevBtn || !nextBtn) return;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.querySelector('.carousel-track');
-      const container = document.querySelector('.carousel-container');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const items = Array.from(track.children);
-      let perView, maxIdx, idx = 0;
+    function updateConfig() {
+      perView = Math.max(1, Math.floor(container.clientWidth / items[0].clientWidth));
+      maxIdx  = Math.ceil(items.length / perView) - 1;
+    }
+    function render() {
+      track.style.transform = `translateX(-${container.clientWidth * idx}px)`;
+    }
 
-      function updateConfig() {
-        // Container genişliği / öğe genişliği kadar öğe sığıyorsa o kadar perView
-        const cw = container.clientWidth;
-        const iw = items[0].clientWidth;
-        perView = Math.max(1, Math.floor(cw / iw));
-        maxIdx = Math.ceil(items.length / perView) - 1;
+    prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; render(); } });
+    nextBtn.addEventListener('click', () => { if (idx < maxIdx) { idx++; render(); } });
+    window.addEventListener('resize', () => { updateConfig(); idx = Math.min(idx, maxIdx); render(); });
+
+    updateConfig();
+    render();
+  })();
+
+  // 5) Projects modal
+  (function() {
+    const modal    = document.getElementById('projects-modal');
+    const openBtn  = document.getElementById('open-up2030');
+    const closeBtn = modal?.querySelector('.modal-close');
+    if (!modal || !openBtn || !closeBtn) return;
+
+    modal.hidden = true;
+    openBtn.addEventListener('click', e => { e.preventDefault(); modal.hidden = false; });
+    closeBtn.addEventListener('click', () => modal.hidden = true);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.hidden = true; });
+  })();
+
+  // 6) Energy Renovations ↔ Metrics toggle
+  (function() {
+    const btnI  = document.getElementById('btn-interventions');
+    const btnM  = document.getElementById('btn-metrics');
+    const setI  = document.querySelector('.cards.interventions');
+    const setM  = document.querySelector('.cards.metrics');
+    if (!btnI || !btnM || !setI || !setM) return;
+
+    setI.hidden = false;
+    setM.hidden = true;
+    btnI.addEventListener('click', () => {
+      btnI.classList.add('active'); btnM.classList.remove('active');
+      setI.hidden = false;            setM.hidden = true;
+    });
+    btnM.addEventListener('click', () => {
+      btnM.classList.add('active'); btnI.classList.remove('active');
+      setI.hidden = true;             setM.hidden = false;
+    });
+  })();
+
+  // 7) View-toggle (interventions/metrics)
+  (function() {
+    const toggle = document.getElementById('view-toggle');
+    if (!toggle) return;
+    const labels = toggle.querySelectorAll('.view-label');
+    const iSet   = document.querySelector('.cards.interventions');
+    const mSet   = document.querySelector('.cards.metrics');
+
+    iSet.hidden = false;
+    mSet.hidden = true;
+    toggle.addEventListener('click', () => {
+      const current = toggle.querySelector('.view-label.active').dataset.view;
+      const next    = current === 'interventions' ? 'metrics' : 'interventions';
+      labels.forEach(lbl => lbl.classList.toggle('active', lbl.dataset.view === next));
+      iSet.hidden = next !== 'interventions';
+      mSet.hidden = next !== 'metrics';
+    });
+  })();
+
+  // 8) Navbar hide on scroll
+  (function() {
+    const navbar = document.getElementById('navbar');
+    let lastY = window.pageYOffset;
+    window.addEventListener('scroll', () => {
+      const y = window.pageYOffset;
+      if      (y <= 0)        navbar.classList.remove('hide');
+      else if (y > lastY)     navbar.classList.add('hide');
+      else                    navbar.classList.remove('hide');
+      lastY = y;
+    });
+  })();
+
+  // 9) Partner logos duplication
+  (function() {
+    const pTrack = document.querySelector('.partners-logos');
+    if (pTrack) pTrack.innerHTML += pTrack.innerHTML;
+  })();
+
+  // 10) Mobile hamburger menu
+  (function() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu   = document.querySelector('nav ul');
+    if (!navToggle || !navMenu) return;
+
+    navToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+    });
+    document.addEventListener('click', e => {
+      if (!navMenu.contains(e.target) && e.target !== navToggle) {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
       }
-
-      function updateCarousel() {
-        track.style.transform = `translateX(-${container.clientWidth * idx}px)`;
-      }
-
-      // Butonlar
-      prevBtn.addEventListener('click', () => {
-        if (idx > 0) {
-          idx--;
-          updateCarousel();
-        }
-      });
-      nextBtn.addEventListener('click', () => {
-        if (idx < maxIdx) {
-          idx++;
-          updateCarousel();
-        }
-      });
-
-      // Yeniden boyutlandığında ayarları güncelle ve aktif sayfayı sınırla
-      window.addEventListener('resize', () => {
-        const oldMax = maxIdx;
-        updateConfig();
-        if (idx > maxIdx) idx = maxIdx;
-        updateCarousel();
-      });
-
-      // İlk ayar
-      updateConfig();
-      updateCarousel();
     });
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById('projects-modal');
-      const closeBtn = modal.querySelector('.modal-close');
-      const openBtn = document.getElementById('open-up2030');
-
-      // Başlangıçta kesin gizli olsun
-      modal.hidden = true;
-
-      // Açma
-      openBtn.addEventListener('click', e => {
-        e.preventDefault();      // "#" linkinin default davranışını iptal et
-        modal.hidden = false;    // modalı göster
-      });
-
-      // Kapatma: × butonu
-      closeBtn.addEventListener('click', () => {
-        modal.hidden = true;
-      });
-
-      // Kapatma: modal arka planına tıklayınca
-      modal.addEventListener('click', e => {
-        if (e.target === modal) modal.hidden = true;
-      });
-    });
-  </script>
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btnI = document.getElementById('btn-interventions');
-      const btnM = document.getElementById('btn-metrics');
-      const setI = document.querySelector('.cards.interventions');
-      const setM = document.querySelector('.cards.metrics');
-
-      // Başlangıç: sadece Müdahaleler görünür
-      setI.hidden = false;
-      setM.hidden = true;
-
-      btnI.addEventListener('click', () => {
-        btnI.classList.add('active');
-        btnM.classList.remove('active');
-        setI.hidden = false;
-        setM.hidden = true;
-      });
-
-      btnM.addEventListener('click', () => {
-        btnM.classList.add('active');
-        btnI.classList.remove('active');
-        setI.hidden = true;
-        setM.hidden = false;
-      });
-    });
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggle = document.getElementById('view-toggle');
-      const labels = toggle.querySelectorAll('.view-label');
-      const cardI = document.querySelector('.cards.interventions');
-      const cardM = document.querySelector('.cards.metrics');
-
-      // Başlangıçta interventions görünür, metrics gizli
-      cardI.hidden = false;
-      cardM.hidden = true;
-
-      toggle.addEventListener('click', () => {
-        const current = toggle.querySelector('.view-label.active').dataset.view;
-        const next = current === 'interventions' ? 'metrics' : 'interventions';
-
-        // Label’lerin active sınıfını güncelle
-        labels.forEach(el => {
-          el.classList.toggle('active', el.dataset.view === next);
-        });
-
-        // Kartları göster/gizle
-        cardI.hidden = next !== 'interventions';
-        cardM.hidden = next !== 'metrics';
-      });
-    });
-
-  </script>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 METU Urban Energy Transition &amp; Sustainability Lab</p>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const navbar = document.getElementById('navbar');
-      let lastScroll = window.pageYOffset;
-
-      window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll <= 0) {
-          // En üste geldiysek mutlaka göster
-          navbar.classList.remove('hide');
-        } else if (currentScroll > lastScroll) {
-          // Aşağı kaydırıyorsak gizle
-          navbar.classList.add('hide');
-        } else {
-          // Yukarı kaydırıyorsak göster
-          navbar.classList.remove('hide');
-        }
-
-        lastScroll = currentScroll;
-      });
-    });
-  </script>
-
-  <script>
-    const track = document.querySelector('.partners-logos');
-    track.innerHTML += track.innerHTML;
-  </script>
-
-  <script>
-    // Mobil hamburger menü aç/kapa ve dış tıklama/scroll ile kapanma
-    (function () {
-      const navToggle = document.getElementById('nav-toggle');
-      const navMenu = document.querySelector('nav ul');
-
-      // Toggle butonuna tıklayınca
-      navToggle.addEventListener('click', e => {
-        e.stopPropagation();
-        navMenu.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
-      });
-
-      // Sayfa herhangi bir yerine tıklandığında, eğer tıklanan nav içi değilse kapa
-      document.addEventListener('click', e => {
-        if (!navMenu.contains(e.target) && e.target !== navToggle) {
+    ['scroll','wheel','touchmove'].forEach(evt =>
+      window.addEventListener(evt, () => {
+        if (navMenu.classList.contains('open')) {
           navMenu.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-expanded','false');
         }
-      });
+      }, { passive: true })
+    );
+  })();
 
-      // Scroll, wheel veya touchmove olduğunda da kapa
-      ['scroll', 'wheel', 'touchmove'].forEach(evt => {
-        window.addEventListener(evt, () => {
-          if (navMenu.classList.contains('open')) {
-            navMenu.classList.remove('open');
-            navToggle.setAttribute('aria-expanded', 'false');
-          }
-        }, { passive: true });
-      });
-    })();
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const buttons = document.querySelectorAll(
-        'a.btn-details[href="legofit.html"], a.btn-details[href="1004.html"]'
+  // 11) Work-in-progress alerts
+  document.querySelectorAll('a.btn-details[href="legofit.html"], a.btn-details[href="1004.html"]')
+    .forEach(btn => btn.addEventListener('click', e => {
+      e.preventDefault();
+      alert(
+        "🚧 Work in Progress!\n\n" +
+        "Our LEGOFIT and SUIT projects are undergoing final enhancements and will be live very soon.\n" +
+        "Thank you for your patience and stay tuned! 🚀"
       );
-      buttons.forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.preventDefault();
-          alert(
-            "🚧 Work in Progress!\n\n" +
-            "Our LEGOFIT and SUIT projects are undergoing final enhancements and will be live very soon.\n" +
-            "Thank you for your patience and stay tuned! 🚀"
-          );
-        });
-      });
-    });
-  </script>
+    }));
+});
+</script>
+
 
 </body>
 
