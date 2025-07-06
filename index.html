@@ -14,10 +14,7 @@
     integrity="sha512-…(6.4.0 integrity)…" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="icon" type="image/png" sizes="48x48" href="images/icons/favicon-48x48.png">
-  >
-
   <style>
-
     :root {
       --bg-color: #E6EBE0;
       --text-color: #000000;
@@ -35,13 +32,13 @@
       --nav-padding-x: 1rem;
     }
 
-      body {
-        padding-top: 3.0rem;
-      }
+    body {
+      padding-top: 3.0rem;
+    }
 
-      html {
-        scroll-padding-top: 3.5rem;
-      }
+    html {
+      scroll-padding-top: 3.5rem;
+    }
 
     /* ——— Dark Mod Tema & Buton Değişkenleri ——— */
     body.dark {
@@ -86,9 +83,20 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
+
     #theme-icon {
       transition: transform 0.3s ease;
     }
+
+    #theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--nav-padding-y) var(--nav-padding-x);
+      font-size: 1rem;
+      /* gerekiyorsa ayarlayın */
+    }
+
 
     .flag-en,
     .flag-tr {
@@ -158,6 +166,7 @@
       scroll-snap-align: start;
       /* hepsine snap konumu */
     }
+
     .hero,
     #why-efficiency {
       height: 100vh;
@@ -177,6 +186,7 @@
       text-decoration: none;
       transition: color 0.3s;
     }
+
     /* Header */
     header {
       position: fixed;
@@ -209,6 +219,7 @@
       margin: 0;
       padding: 0;
     }
+
     #navbar {
       position: fixed;
       top: 0;
@@ -353,6 +364,7 @@
     header {
       padding: 0.3rem 1rem;
     }
+
     .logo span {
       font-size: 1.4rem;
     }
@@ -361,12 +373,15 @@
       header {
         padding: 0.5rem 1rem !important;
       }
+
       header .logo span {
         font-size: 1rem !important;
       }
+
       nav ul.open {
         width: 80% !important;
       }
+
       nav ul.open li a,
       nav ul.open li button {
         padding: 0.5rem 0.75rem !important;
@@ -434,6 +449,7 @@
     }
 
     @media (max-width: 768px) {
+
       nav a,
       nav button {
         padding: 0.4rem 0.75rem;
@@ -631,6 +647,7 @@
       gap: 2rem;
       margin: 0 auto;
       max-width: 1200px;
+      ""
       box-sizing: border-box;
     }
 
@@ -639,6 +656,36 @@
       flex: 1;
       padding: 2rem;
       box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+
+      /* Metin bloğunu tam genişlikte ve dikey akışta göster */
+      .we-text {
+        float: none !important;
+        width: 100% !important;
+        margin: 0 0 1.5rem 0 !important;
+        padding: 0 1rem !important;
+      }
+
+      /* Başlığı biraz daha küçük yap */
+      .we-text h2 {
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+
+      /* Paragraf metnini de küçült ve satır aralığını daralt */
+      .we-text p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+
+      /* Carousel’i de altına geçirsin */
+      .we-carousel {
+        width: 100% !important;
+        margin: 0 auto;
+        float: none;
+      }
     }
 
 
@@ -662,8 +709,8 @@
     }
 
     .we-carousel {
-      flex: 0 0 584px;
-      max-width: 584px;
+      flex: 0 0 394px;
+      max-width: 400px;
 
       height: calc(100vh - 144.8px);
 
@@ -776,6 +823,56 @@
         transform: translateX(-50%) !important;
         display: flex !important;
         gap: 0.5rem !important;
+      }
+    }
+
+    /* 1) Ortak: momentum scrolling ve scroll-snap aktif et, native scrollbar’ı gizle */
+    .we-carousel,
+    .carousel-container {
+      overflow-x: auto;
+      /* yatayda scroll */
+      overflow-y: hidden;
+      /* dikey taşmayı kes */
+      -webkit-overflow-scrolling: touch;
+      /* iOS momentum scroll */
+      scroll-snap-type: x mandatory;
+      /* çocukları snap’le */
+
+      /* native scrollbar gizleme */
+      -ms-overflow-style: none;
+      /* IE 10+ */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .we-carousel::-webkit-scrollbar,
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Edge */
+    }
+
+    /* 2) Flex düzeninde tut, snap sonrası boşluk ver */
+    .we-slides,
+    .carousel-track {
+      display: flex;
+      scroll-padding: 0 1rem;
+    }
+
+    /* 3) Her slayt/kart bir “snap point” olsun */
+    .we-slides img,
+    .member-card {
+      flex: 0 0 auto;
+      /* kendi içerik genişliğinde */
+      scroll-snap-align: start;
+      /* snap sonrası başlangıca yasla */
+    }
+
+    /* 4) Mobilde prev/next butonlarını gizle isterseniz */
+    @media (max-width: 768px) {
+
+      #prevBtn,
+      #nextBtn {
+        display: none;
       }
     }
 
@@ -940,6 +1037,40 @@
     }
 
 
+    /* Kartın dış çerçevesi taşan her şeyi gizlesin */
+    /* 1) Kartın dış sınırı taşanı gizlesin */
+    .flip-card {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* 2) Arka yüzü flex ile dikey ortala, taşma yerine küçültme yapacağız */
+    .flip-card-back {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 1rem;
+      box-sizing: border-box;
+      /* artık overflow: auto kaldırdık */
+      overflow: hidden;
+    }
+
+    /* 3) Başlık ve paragraf için esnek font boyutları */
+    .flip-card-back h3 {
+      /* minimum 0.9rem, ideal 1.1rem, maksimum 1.25rem arası */
+      font-size: clamp(0.9rem, 1.1vw, 1.25rem);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .flip-card-back p {
+      /* minimum 0.75rem, ideal 0.9rem, maksimum 1rem arası */
+      font-size: clamp(0.75rem, 0.9vw, 1rem);
+      line-height: 1.3;
+      margin: 0;
+    }
+
     #what-we-do .toggle-buttons {
       display: flex;
       justify-content: flex-start;
@@ -993,16 +1124,22 @@
       object-fit: cover;
     }
 
-    .intervention-card .info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      color: var(--bg-color);
-      padding: .75rem;
-      box-sizing: border-box;
-    }
+  .intervention-card .info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.75rem;
+    
+    /* NEW: make all info‐bars the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 4rem;   /* tweak this value to taste */
+  }
+
 
 
     .intervention-card .info {
@@ -1476,6 +1613,7 @@
       padding: 0;
     }
 
+    
     #publications .publication {
       margin-bottom: 2rem;
       line-height: 1.2;
@@ -1516,7 +1654,16 @@
         word-break: break-word;
       }
     }
+    #publications .publications-list {
+      list-style: disc inside !important;  /* madde işaretini iç tarafta, dolu daire yap */
+      padding-left: 1.5rem !important;     /* soldan girinti için */
+    }
 
+    /* Her bir .publication öğesini list-item yap */
+    #publications .publications-list .publication {
+      display: list-item !important;
+      margin-bottom: 1.75rem;              /* satırlar arası boşluk */
+    }
     /* ─── Contact Bölümü  ─────────────────────────── */
     #contact {
       background: var(--bg-color);
@@ -1737,45 +1884,50 @@
       background: transparent;
     }
 
-@media (max-width: 768px) {
-  /* 1) Container’daki fazla soldan boşluğu kaldır */
-  #site-footer .footer-container {
-    /* Eski margin-left’i sıfırla */
-    margin-left: 0 !important;
-    /* Kenarlardan boşluk vermek istersen padding kullan */
-    padding: 0 1rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;   /* Sola yasla */
-  }
+    @media (max-width: 768px) {
 
-  /* 2) Her bir footer-col’u sola hizala */
-  #site-footer .footer-col {
-    width: 100% !important;
-    margin: 0 0 1rem 0 !important;        /* Alt boşluk */
-    text-align: left !important;          /* Sola hizala */
-    padding: 0 !important;                /* Eğer padding varsa sıfırla */
-  }
+      /* 1) Container’daki fazla soldan boşluğu kaldır */
+      #site-footer .footer-container {
+        /* Eski margin-left’i sıfırla */
+        margin-left: 0 !important;
+        /* Kenarlardan boşluk vermek istersen padding kullan */
+        padding: 0 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        /* Sola yasla */
+      }
 
-  /* 3) “Address” bölümü daha da sola gelsin */
-  #site-footer .footer-col.address,
-  #site-footer .footer-col.contact {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-  }
+      /* 2) Her bir footer-col’u sola hizala */
+      #site-footer .footer-col {
+        width: 100% !important;
+        margin: 0 0 1rem 0 !important;
+        /* Alt boşluk */
+        text-align: left !important;
+        /* Sola hizala */
+        padding: 0 !important;
+        /* Eğer padding varsa sıfırla */
+      }
 
-  /* 4) Footer kopyası ortada kalsın istersen */
-  .footer-copy {
-    text-align: center !important;
-  }
-}
+      /* 3) “Address” bölümü daha da sola gelsin */
+      #site-footer .footer-col.address,
+      #site-footer .footer-col.contact {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+      }
+
+      /* 4) Footer kopyası ortada kalsın istersen */
+      .footer-copy {
+        text-align: center !important;
+      }
+    }
 
 
 
     .intervention-card,
     .project-card {
-      outline: 2px solid transparent;ege
-      outline-offset: 6px;
+      outline: 2px solid transparent;
+      ege outline-offset: 6px;
       transition: outline-color 0.3s, outline-offset 0.3s;
     }
 
@@ -2007,7 +2159,6 @@
         word-break: break-word !important;
       }
     }
-
   </style>
 </head>
 
@@ -2085,15 +2236,14 @@
         Yapılı Çevrede sürdürülebilir enerji çözümlerini analiz ediyoruz.
       </p>
 
-
-
       <!-- Vision -->
       <p class="vision"
-        data-tr="Vizyonumuz; yapılı çevrede enerji renovasyonları gerçekleştirerek mevcut yapı stokunu sürdürülebilir hale getirmek, enerji tüketimini minimize etmek ve yaşam kalitesini artırmak üzere yenilikçi ve bütüncül çözümler geliştirmektir."
-        data-en="Our vision is to deliver energy renovation projects in the built environment—transforming existing building stock into sustainable assets, minimizing energy consumption, and enhancing quality of life through innovative solutions.">
-        Vizyonumuz; yapılı çevrede enerji renovasyonları gerçekleştirerek mevcut yapı stokunu sürdürülebilir hale
-        getirmek, enerji tüketimini minimize etmek ve yaşam kalitesini artırmak üzere yenilikçi ve bütüncül çözümler
-        geliştirmektir.
+        data-tr="Araştırma grubumuz, mevcut yapı stokunu temiz enerji geçişi çerçevesinde yeniden yapılandırmak üzere gelişmiş enerji modelleme ve simülasyon araçları kullanarak; yenilenebilir enerji entegrasyonu ile enerji verimliliğini eş zamanlı olarak optimize etmeyi, düşük karbonlu yenileme stratejilerinin kentsel ölçekte uygulanabilirliğini değerlendirmeyi ve sürdürülebilir bina konseptlerinin kullanıcı termal konforuna katkılarını araştırmayı amaçlamaktadır."
+        data-en="Our research team utilizes advanced energy modeling and simulation tools to retrofit existing building stock within the clean energy transition framework; optimizing renewable energy integration and energy efficiency, evaluating the urban-scale feasibility of low-carbon renovation strategies, and assessing the impact of sustainable building concepts on occupant thermal comfort.">
+        Araştırma grubumuz, mevcut yapı stokunu temiz enerji geçişi çerçevesinde yeniden yapılandırmak üzere gelişmiş
+        enerji modelleme ve simülasyon araçları kullanarak; yenilenebilir enerji entegrasyonu ile enerji verimliliğini eş zamanlı
+        olarak optimize etmeyi, düşük karbonlu yenileme stratejilerinin kentsel ölçekte uygulanabilirliğini değerlendirmeyi
+        ve sürdürülebilir bina konseptlerinin kullanıcı termal konforuna katkılarını araştırmayı amaçlamaktadır.
       </p>
 
 
@@ -2119,56 +2269,65 @@
 
 
   <section id="why-efficiency">
-    <div class="we-container">
-      <div class="we-text">
-        <!-- Başlık 1 -->
-        <h2 data-tr="Enerji Verimli Binalar Neden Kritik?" data-en="Why Are Energy-Efficient Buildings Critical?">
-          Enerji Verimli Binalar Neden Kritik?
-        </h2>
+  <div class="we-container">
+    <div class="we-text" style="float:left; width:55%; margin-right:2rem;">
+      <!-- Başlık 1 -->
+      <h2 data-tr="Temiz Enerji Geçişi Neden Kritik?" data-en="Why Is the Clean Energy Transition Critical?">
+        Temiz Enerji Geçişi Neden Kritik?
+      </h2>
+
+      <!-- Paragraf 1 -->
+      <p
+        data-tr="Küresel iklim değişikliğiyle mücadelede hızla artan sıcaklıklar, deniz seviyesindeki yükselmeler ve aşırı hava olayları; kuraklık, sel baskınları, tarımsal verim düşüşü ve ekosistem kayıplarına yol açıyor. Bu sorunları azaltmak için fosil yakıtlardan uzaklaşıp temiz enerjiye yönelmemiz zorunlu kılıyor. Enerji üretiminin %75’i hâlen kömür, petrol ve doğal gazdan geliyor—bu da sera gazı emisyonlarının temel kaynağı. (IPCC, 2022; IEA, 2023)"
+        data-en="Rising global temperatures, sea-level rise and extreme weather events—droughts, floods, crop failures and ecosystem loss—are the hallmarks of climate change. Shifting away from fossil fuels to clean energy is imperative to mitigate these threats. Currently, 75% of power generation still relies on coal, oil and gas—major contributors to greenhouse gas emissions. (IPCC, 2022; IEA, 2023)">
+        Küresel iklim değişikliğiyle mücadelede hızla artan sıcaklıklar, deniz seviyesindeki yükselmeler ve aşırı hava
+        olayları; kuraklık, sel baskınları, tarımsal verim düşüşü ve ekosistem kayıplarına yol açıyor. Bu sorunları
+        azaltmak için fosil yakıtlardan uzaklaşıp temiz enerjiye yönelmemiz zorunlu kılıyor. Enerji üretiminin %75’i
+        hâlen kömür, petrol ve doğal gazdan geliyor—bu da sera gazı emisyonlarının temel kaynağı. (IPCC, 2022; IEA,
+        2023)
+      </p>
+      <br>
+      <!-- Başlık 2 -->
+      <h2 data-tr="Yatırımları Hızlandırmak Kaçınılmaz" data-en="Accelerating Investments Is Inevitable">
+        Yatırımları Hızlandırmak Kaçınılmaz
+      </h2>
+
+      <!-- Paragraf 2 -->
+      <p
+        data-tr="2030 yılına kadar küresel çapta yapılması öngörülen enerji dönüşüm yatırımlarının yıllık 250–300 milyar USD civarında olması gerektiği hesaplanmaktadır (IEA, 2024). Bu yatırım miktarının sağlanması, mevcut yapıların yenilenmesi ve yeni yapıların sürdürülebilir standartlara uygun inşası için gerekli altyapıyı oluşturacaktır. (IEA, 2024)"
+        data-en="It is estimated that global energy transformation investments need to reach approximately USD 250–300 billion annually by 2030 (IEA, 2024). Securing this level of investment will create the essential infrastructure for retrofitting existing buildings and constructing new buildings aligned with sustainable standards. (IEA, 2024)">
+        2030 yılına kadar küresel çapta yapılması öngörülen enerji dönüşüm yatırımlarının yıllık 250–300 milyar USD
+        civarında olması gerektiği hesaplanmaktadır. Bu yatırım miktarının sağlanması, mevcut yapıların
+        yenilenmesi ve yeni yapıların sürdürülebilir standartlara uygun inşası için gerekli altyapıyı oluşturacaktır.
+        (IEA, 2024)
+      </p>
+      <br>
+      <!-- Başlık 3: Ekonomik ve Sosyal Faydalar -->
+      <h2 data-tr="Ekonomik ve Sosyal Faydalar" data-en="Economic and Social Benefits">
+        Ekonomik ve Sosyal Faydalar
+      </h2>
+      <p
+        data-tr="Bina enerji verimliliğinin iyileştirilmesi, operasyonel maliyetleri ortalama %20–30 oranında düşürmekle kalmaz; aynı zamanda yerel iş gücü ve ekonomik faaliyetlere katkı sağlayarak toplumsal refahı artırır. (Zhang ve ark., 2020) Ayrıca, adil geçiş kavramı çerçevesinde herkesin bu dönüşümden eşit şekilde fayda sağlamasını garanti etmek kritik bir gerekliliktir. (UNDP, 2025)"
+        data-en="Improving building energy efficiency not only cuts operational costs by an average of 20–30% but also boosts local employment and economic activity, enhancing overall community well-being. (Zhang et al., 2020) Moreover, within a just transition framework, it is critical to ensure that all segments of society equitably benefit from this shift. (UNDP, 2025)">
+        Bina enerji verimliliğinin iyileştirilmesi, operasyonel maliyetleri ortalama %20–30 oranında düşürmekle kalmaz;
+        aynı zamanda yerel iş gücü ve ekonomik faaliyetlere katkı sağlayarak toplumsal refahı artırır. (Zhang ve ark.,
+        2020) Ayrıca, adil geçiş kavramı çerçevesinde herkesin bu dönüşümden eşit şekilde fayda sağlamasını garanti
+        etmek kritik bir gerekliliktir. (UNDP, 2025)
+      </p>
+    </div>
 
 
-
-        <!-- Paragraf 1 -->
-        <p data-tr="Uluslararası Enerji Ajansı'nın (IEA) raporlarına göre, küresel enerji ilişkili karbon emisyonlarının yaklaşık %38’i doğrudan binaların enerji tüketiminden kaynaklanmaktadır. Ayrıca, yapı malzemelerinin üretimi ve tedarik süreçleri bu emisyonlara yaklaşık %10 ek katkı sağlamaktadır (IEA, 2024)."
-          data-en="According to the International Energy Agency (IEA), approximately 38% of global energy-related carbon emissions originate directly from building energy consumption. Additionally, the production and supply processes of building materials contribute approximately an additional 10% to these emissions (IEA, 2024).">
-          Uluslararası Enerji Ajansı'nın (IEA) raporlarına göre, küresel enerji ilişkili karbon emisyonlarının yaklaşık
-          %38’i doğrudan binaların enerji tüketiminden kaynaklanmaktadır. Ayrıca, yapı malzemelerinin üretimi ve tedarik
-          süreçleri bu emisyonlara yaklaşık %10 ek katkı sağlamaktadır (IEA, 2024).
-        </p>
-
-        <!-- Paragraf 2 -->
-        <p data-tr="Mevcut bina stokunun yaklaşık %75’i, enerji performansı açısından düşük standartlara sahiptir. Bu yapılar, küresel ölçekte her yıl yaklaşık 520 milyon ton karbondioksit (MtCO₂) salınımına yol açmaktadır. Bu durumun iyileştirilmesi, hem çevresel sürdürülebilirlik hem de enerji ekonomisi açısından kritik önem taşımaktadır."
-          data-en="Approximately 75% of the existing building stock does not meet sufficient energy performance standards, resulting in around 520 million tons of carbon dioxide (MtCO₂) emissions annually on a global scale. Improving this situation is critical for both environmental sustainability and energy economics.">
-          Mevcut bina stokunun yaklaşık %75’i, enerji performansı açısından düşük standartlara sahiptir. Bu yapılar,
-          küresel ölçekte her yıl yaklaşık 520 milyon ton karbondioksit (MtCO₂) salınımına yol açmaktadır. Bu durumun
-          iyileştirilmesi, hem çevresel sürdürülebilirlik hem de enerji ekonomisi açısından kritik önem taşımaktadır.
-        </p>
-        <br>
-        <br>
-        <!-- Başlık 2: Yatırımları hızlandırmaya dair -->
-        <h2 data-tr="Yatırımları Hızlandırmak Kaçınılmaz" data-en="Accelerating Investments Is Inevitable">
-          Yatırımları Hızlandırmak Kaçınılmaz
-        </h2>
-
-        <!-- Paragraf 3 -->
-        <p data-tr="2030 yılına kadar küresel çapta yapılması öngörülen enerji dönüşüm yatırımlarının yıllık 250–300 milyar USD civarında olması gerektiği hesaplanmaktadır (IEA, 2024). Bu yatırım miktarının sağlanması, mevcut yapıların yenilenmesi ve yeni yapıların sürdürülebilir standartlara uygun inşası için gerekli altyapıyı oluşturacaktır."
-          data-en="It is estimated that global energy transformation investments need to reach approximately USD 250–300 billion annually by 2030 (IEA, 2024). Securing this level of investment will create the essential infrastructure for retrofitting existing buildings and constructing new buildings aligned with sustainable standards.">
-          2030 yılına kadar küresel çapta yapılması öngörülen enerji dönüşüm yatırımlarının yıllık 250–300 milyar USD
-          civarında olması gerektiği hesaplanmaktadır (IEA, 2024). Bu yatırım miktarının sağlanması, mevcut yapıların
-          yenilenmesi ve yeni yapıların sürdürülebilir standartlara uygun inşası için gerekli altyapıyı oluşturacaktır.
-        </p>
-      </div>
-
-      <!-- Sağ: Kayan Görseller Carousel -->
+      <!-- Sağ: Kayan Görseller Carousel (değişmedi) -->
       <div class="we-carousel">
         <div class="we-slides">
-          <img src="images/slides/slide1.png" alt="IEA Net Zero 2050 Roadmap">
-          <img src="images/slides/slide2.png" alt="IEA Net Zero 2050 Roadmap">
-          <img src="images/slides/slide3.png" alt="IEA Net Zero 2050 Roadmap">
-          <img src="images/slides/slide4.png" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide1.jpg" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide2.jpg" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide3.jpg" alt="IEA Net Zero 2050 Roadmap">
+          <img src="images/slides/slide4.jpg" alt="IEA Net Zero 2050 Roadmap">
         </div>
         <div class="we-dots"></div>
       </div>
+    </div>
   </section>
 
 
@@ -2202,21 +2361,24 @@
                 <h3 data-tr="Yalıtım Analizleri" data-en="Envelope Retrofit">
                   Yalıtım Analizleri
                 </h3>
-                <p data-tr="Detaylı enerji analizleri." data-en="Detailed energy analyses.">
-                  Detaylı enerji analizleri.
+                <p
+                  data-tr="Farklı yapı malzemeleri için U-değeri hesaplamaları ve kalınlık optimizasyonu"
+                  data-en="Thickness calculations and optimization for insulation materials">
+                  Farklı yapı malzemeleri için U-değeri hesaplamaları ve kalınlık optimizasyonu.
                 </p>
               </div>
             </div>
             <!-- Back -->
             <div class="flip-card-back">
-              <h3 data-tr="Yalıtım Analizleri" data-en="Thermal Transmittance Analysis">
+              <h3 data-tr="Yalıtım Analizleri" data-en="Envelope Retrofit">
                 Yalıtım Analizleri
               </h3>
-              <p data-tr="Yapı bileşenlerinin ısı geçirgenliğini analiz ederek, enerji kayıplarını azaltmak ve optimum yalıtım kalınlıklarını belirlemek için maliyet–fayda değerlendirmeleri yapılır."
-                data-en="Thermal transmittance of building components is analyzed to reduce energy losses and determine optimal insulation thicknesses through cost-benefit evaluations.">
-                Yapı bileşenlerinin ısı geçirgenliğini analiz ederek, enerji kayıplarını azaltmak ve optimum yalıtım
-                kalınlıklarını belirlemek için maliyet–fayda değerlendirmeleri yapılır.
+              <p
+                data-tr="Yalıtım malzemelerinin U değerleri temel alınarak kalınlık optimizasyonu ve farklı malzeme seçimleri yapılır; böylece ısı kayıpları en aza indirilerek bina performansı iyileştirilir."
+                data-en="Insulation thicknesses and material choices are optimized based on U-values, selecting appropriate insulation types to minimize thermal losses and enhance overall building performance.">
+                Yalıtım malzemelerinin U değerleri temel alınarak kalınlık optimizasyonu ve farklı malzeme seçimleri yapılır; böylece ısı kayıpları en aza indirilerek bina performansı iyileştirilir.
               </p>
+
             </div>
           </div>
         </div>
@@ -2230,19 +2392,21 @@
                 <h3 data-tr="Isı Pompası Kurulumu" data-en="Heat Pump Installation">
                   Isı Pompası Kurulumu
                 </h3>
-                <p data-tr="Performans iyileştirme projeleri." data-en="Performance improvement projects.">
-                  Performans iyileştirme projeleri.
+                <p
+                  data-tr="Bina enerji kullanımının fosil yakıtların yerini alacak şekilde elektrikleştirilmesi"
+                  data-en="Electrification of building energy use to replace fossil fuels">
+                  Bina enerji kullanımının fosil yakıtların yerini alacak şekilde elektrikleştirilmesi.
                 </p>
               </div>
             </div>
             <div class="flip-card-back">
-              <h3 data-tr="Isı Pompası Kurulumu" data-en="Heat Pump System Modeling">
+              <h3 data-tr="Isı Pompası Kurulumu" data-en="Heat Pump Installation">
                 Isı Pompası Kurulumu
               </h3>
-              <p data-tr="Isı pompası sistemlerinin enerji performansı, COP değerleri ve yıllık işletme maliyetleri detaylı şekilde modellenerek, enerji tüketiminin azaltılması hedeflenir."
-                data-en="Energy performance, COP values, and annual operational costs of heat pump systems are modeled in detail to reduce energy consumption.">
-                Isı pompası sistemlerinin enerji performansı, COP değerleri ve yıllık işletme maliyetleri detaylı
-                şekilde modellenerek, enerji tüketiminin azaltılması hedeflenir.
+              <p
+                data-tr="Isı pompası sistemlerinin yüksek verimliliği, COP değerleri ve yıllık işletme maliyetleri simülasyonlarla detaylı şekilde modellenerek, hem enerji tüketimi hem de işletme giderlerinin azaltılması amaçlanır."
+                data-en="The high efficiency of heat pump systems, COP values, and annual operational costs are modeled in detail through simulations, aiming to reduce both energy consumption and operating expenses.">
+                Isı pompası sistemlerinin yüksek verimliliği, COP değerleri ve yıllık işletme maliyetleri simülasyonlarla detaylı şekilde modellenerek, hem enerji tüketimi hem de işletme giderlerinin azaltılması amaçlanır.
               </p>
             </div>
           </div>
@@ -2254,11 +2418,13 @@
             <div class="flip-card-front intervention-card">
               <img src="images/diagrams/Çalışma Yüzeyi 11-100.jpg" alt="Güneş Paneli Entegrasyonu">
               <div class="info">
-                <h3 data-tr="Güneş Paneli Entegrasyonu" data-en="PV Integration">
+                <h3 data-tr="Güneş Paneli Entegrasyonu" data-en="Solar Panel Integration">
                   Güneş Paneli Entegrasyonu
                 </h3>
-                <p data-tr="Güneş enerjisi entegrasyonu." data-en="Solar energy integration.">
-                  Güneş enerjisi entegrasyonu.
+                <p
+                  data-tr="Güneş panelleri ile yenilenebilir enerji üretimi, çatılarda enerji talebini karşılayacak şekilde entegre edilir"
+                  data-en="PV panels are integrated on roofs to generate renewable energy ">
+                  Güneş panelleri ile yenilenebilir enerji üretimi, çatılarda enerji talebini karşılayacak şekilde entegre edilir.
                 </p>
               </div>
             </div>
@@ -2266,10 +2432,10 @@
               <h3 data-tr="Güneş Paneli Entegrasyonu" data-en="Solar PV Integration">
                 Güneş Paneli Entegrasyonu
               </h3>
-              <p data-tr="Binaların çatı ve cephelerine güneş panellerinin entegrasyonu için enerji üretim potansiyeli ve yatırım geri dönüş süreleri simülasyonlarla hesaplanır."
-                data-en="Energy generation potential and return on investment periods for integrating solar panels on roofs and façades are calculated through simulations.">
-                Binaların çatı ve cephelerine güneş panellerinin entegrasyonu için enerji üretim potansiyeli ve yatırım
-                geri dönüş süreleri simülasyonlarla hesaplanır.
+              <p
+                data-tr="Güneş panellerinin çatılara ve cephelere entegrasyonu, işletme maliyetlerini önemli ölçüde düşürür ve karbon emisyonlarını azaltır."
+                data-en="Integrating solar PV panels on roofs and façades significantly lowers operating costs and reduces carbon emissions.">
+                Güneş panellerinin çatılara ve cephelere entegrasyonu, işletme maliyetlerini önemli ölçüde düşürür ve karbon emisyonlarını azaltır.
               </p>
             </div>
           </div>
@@ -2281,12 +2447,14 @@
             <div class="flip-card-front intervention-card">
               <img src="images/diagrams/Çalışma Yüzeyi 7-100.jpg" alt="Şarj Ünitesi Optimizasyonu">
               <div class="info">
-                <h3 data-tr="Şarj Ünitesi Optimizasyonu" data-en="Charging Station Optimization">
-                  Şarj Ünitesi Optimizasyonu
-                </h3>
-                <p data-tr="U-değer hesaplamaları." data-en="U-value calculations.">
-                  U-değer hesaplamaları.
-                </p>
+              <h3 data-tr="Şarj Ünitesi Lokasyon Optimizasyonu" data-en="Charging Station Location Optimization">
+                Şarj Ünitesi Lokasyon Optimizasyonu
+              </h3>
+              <p
+                data-tr="Elektrikli araç şarj ünitelerinin konum seçimini optimize etmek için talep yoğunluğu değerlendirilmesi."
+                data-en="Location selection and optimization of charging stations">
+                Elektrikli araç şarj ünitelerinin konum seçimini optimize etmek için talep yoğunluğu değerlendirilmesi.
+              </p>
               </div>
             </div>
             <div class="flip-card-back">
@@ -2311,8 +2479,9 @@
                 <h3 data-tr="Depolama Çözümleri" data-en="Storage Solutions">
                   Depolama Çözümleri
                 </h3>
-                <p data-tr="Verimlilik optimizasyonu." data-en="Efficiency optimization.">
-                  Verimlilik optimizasyonu.
+                <p data-tr="Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir."
+                  data-en="Storage systems are analyzed according to hourly energy use.">
+                  Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir.
                 </p>
               </div>
             </div>
@@ -2320,16 +2489,15 @@
               <h3 data-tr="Depolama Çözümleri" data-en="Energy Storage Systems">
                 Depolama Çözümleri
               </h3>
-              <p data-tr="Enerji depolama sistemlerinin etkinliği analiz edilerek, pil sistemlerinin ekonomik performansı, uzun vadeli güvenilirliği ve çevresel faydaları değerlendirilir."
-                data-en="Effectiveness of energy storage systems is analyzed, assessing battery systems for economic performance, long-term reliability, and environmental benefits.">
-                Enerji depolama sistemlerinin etkinliği analiz edilerek, pil sistemlerinin ekonomik performansı, uzun
-                vadeli güvenilirliği ve çevresel faydaları değerlendirilir.
+              <p data-tr="Enerji depolama sistemlerinin etkinliği saatlik bazda analiz edilerek, pil sistemlerinin ekonomik performansı, uzun vadeli güvenilirliği ve çevresel faydaları değerlendirilir."
+                data-en="Effectiveness of energy storage systems is analyzed according to hourly energy use, assessing battery systems for economic performance, long-term reliability, and environmental benefits.">
+                Enerji depolama sistemlerinin etkinliği saatlik bazda analiz edilerek, pil sistemlerinin ekonomik performansı, uzun vadeli güvenilirliği ve çevresel faydaları değerlendirilir.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- 6. Yaşam Döngüsü Maliyet Analizi -->
+
         <!-- 6. Kent Mobilyası Tasarımları -->
         <div class="flip-card">
           <div class="flip-card-inner">
@@ -2340,8 +2508,8 @@
                 <h3 data-tr="Kent Mobilyası Tasarımları" data-en="Urban Furniture Design">
                   Kent Mobilyası Tasarımları
                 </h3>
-                <p data-tr="Sürdürülebilir Kent Mobilyaları." data-en="Sustainable urban furnitures.">
-                  Kentsel mekanlar için ergonomik ve sürdürülebilir mobilya tasarımına yönelik malzeme, yerleşim ve
+                <p data-tr="Sürdürülebilir Kent Mobilyaları Tasarımları " data-en="Sustainable Urban Furniture Design">
+                  Kentsel mekanlarda farkındalık oluşturmak ve temiz enerji üretimi için ergonomik ve sürdürülebilir mobilya tasarımına yönelik malzeme, yerleşim ve
                   işlevsellik optimizasyonu yapılır.
                 </p>
               </div>
@@ -2351,10 +2519,10 @@
               <h3 data-tr="Kent Mobilyası Tasarımları" data-en="Urban Furniture Design">
                 Kent Mobilyası Tasarımları
               </h3>
-              <p data-tr="Dayanıklılık, çevresel etki ve kullanıcı konforu gözetilerek şehir mobilyalarının tüm yaşam döngüsü boyunca performans değerlendirmeleri gerçekleştirilir."
-                data-en="Lifecycle performance assessments of street furniture, considering durability, environmental impact, and user comfort.">
-                Dayanıklılık, çevresel etki ve kullanıcı konforu gözetilerek şehir mobilyalarının tüm yaşam döngüsü
-                boyunca performans değerlendirmeleri gerçekleştirilir.
+              <p
+                data-tr="Kentsel mekanlarda farkındalık oluşturmak ve temiz enerji üretimini teşvik etmek amacıyla ergonomik kullanım, sürdürülebilir malzeme seçimi, yerleşim ve işlevsellik açısından mobilya tasarımları optimize edilir."
+                data-en="Furniture designs are optimized for ergonomic use, sustainable material selection, placement, and functionality to raise awareness in urban spaces and promote clean energy generation.">
+                Kentsel mekanlarda farkındalık oluşturmak ve temiz enerji üretimini teşvik etmek amacıyla ergonomik kullanım, sürdürülebilir malzeme seçimi, yerleşim ve işlevsellik açısından mobilya tasarımları optimize edilir.
               </p>
             </div>
           </div>
@@ -2363,171 +2531,171 @@
 
 
       <!-- Metrikler Kartları (başlangıçta gizli) -->
-      <div class="cards metrics" hidden>
-        <!-- 1. Energy Use -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- Front -->
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 1-100.jpg" alt="Energy Use">
-              <div class="info">
-                <h3 data-tr="Energy Use" data-en="Energy Use">
-                  Energy Use
-                </h3>
-                <p data-tr="Yıllık enerji tüketimi." data-en="Annual energy consumption.">
-                  Yıllık enerji tüketimi.
-                </p>
-              </div>
-            </div>
-            <!-- Back -->
-            <div class="flip-card-back">
-              <h3 data-tr="Energy Use" data-en="Energy Use">
-                Energy Use
-              </h3>
-              <p data-tr="Yapıların yıllık enerji tüketimi kWh/m² olarak hesaplanarak enerji performansının bina tipleri ve kullanım senaryoları bazında detaylı değerlendirilmesi yapılır."
-                data-en="Annual energy consumption of buildings calculated as kWh/m², providing detailed performance assessments based on building types and usage scenarios.">
-                Yapıların yıllık enerji tüketimi kWh/m² olarak hesaplanarak enerji performansının bina tipleri ve
-                kullanım senaryoları bazında detaylı değerlendirilmesi yapılır.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. IOD -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 2-100.jpg" alt="IOD">
-              <div class="info">
-                <h3 data-tr="IOD" data-en="Indoor Overheating Degree">
-                  IOD
-                </h3>
-                <p data-tr="Aşırı Isınma Riski" data-en="Indoor Overheating Degree">
-                  Aşırı Isınma Riski
-                </p>
-              </div>
-            </div>
-            <div class="flip-card-back">
-              <h3 data-tr="IOD" data-en="Indoor–Outdoor Delta">
-                IOD
-              </h3>
-              <p data-tr="İç ve dış sıcaklık farklarının analizi ile bina kullanıcılarının termal konforu ve enerji ihtiyacı modellenerek performans değerlendirmeleri gerçekleştirilir."
-                data-en="Analysis of indoor-outdoor temperature differences to model occupant thermal comfort and energy demands, enabling performance evaluations.">
-                İç ve dış sıcaklık farklarının analizi ile bina kullanıcılarının termal konforu ve enerji ihtiyacı
-                modellenerek performans değerlendirmeleri gerçekleştirilir.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Investment Costs -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 3-100.jpg" alt="Investment Costs">
-              <div class="info">
-                <h3 data-tr="Yatırım Maliyetleri" data-en="Investment Costs">
-                  Yatırım Maliyetleri
-                </h3>
-                <p data-tr="CAPEX & OPEX detayları." data-en="CAPEX & OPEX details.">
-                  CAPEX & OPEX detayları.
-                </p>
-              </div>
-            </div>
-            <div class="flip-card-back">
-              <h3 data-tr="Yatırım Maliyetleri" data-en="Investment Costs">
-                Yatırım Maliyetleri
-              </h3>
-              <p data-tr="Enerji verimliliği projelerinin başlangıç (CAPEX) ve operasyonel (OPEX) yatırım maliyetleri analiz edilerek ekonomik sürdürülebilirlik değerlendirilir."
-                data-en="Initial (CAPEX) and operational (OPEX) investment costs of energy efficiency projects are analyzed to evaluate economic sustainability.">
-                Enerji verimliliği projelerinin başlangıç (CAPEX) ve operasyonel (OPEX) yatırım maliyetleri analiz
-                edilerek ekonomik sürdürülebilirlik değerlendirilir.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Abatement Costs -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 4-100.jpg" alt="Abatement Costs">
-              <div class="info">
-                <h3 data-tr="Emisyon Azaltım Maliyetleri" data-en="Abatement Costs">
-                  Emisyon Azaltım Maliyetleri
-                </h3>
-                <p data-tr="$/tCO₂ abatement." data-en="$/tCO₂ abatement.">
-                  $/tCO₂ abatement.
-                </p>
-              </div>
-            </div>
-            <div class="flip-card-back">
-              <h3 data-tr="Emisyon Azaltım Maliyetleri" data-en="Abatement Costs">
-                Emisyon Azaltım Maliyetleri
-              </h3>
-              <p data-tr="Karbon emisyonlarını azaltmak için gerekli maliyetler $/tCO₂ olarak hesaplanarak, çeşitli enerji senaryolarının maliyet etkinliği karşılaştırılır."
-                data-en="Costs required for carbon emission reduction calculated as $/tCO₂, comparing cost-effectiveness across different energy scenarios.">
-                Karbon emisyonlarını azaltmak için gerekli maliyetler $/tCO₂ olarak hesaplanarak, çeşitli enerji
-                senaryolarının maliyet etkinliği karşılaştırılır.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Op. Carbon -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 5-100.jpg" alt="Operational Carbon">
-              <div class="info">
-                <h3 data-tr="İşletme Kaynaklı Karbon" data-en="Operational Carbon">
-                  İşletme Kaynaklı Karbon
-                </h3>
-                <p data-tr="Ton/yıl bazında." data-en="Tons/year.">
-                  Ton/yıl bazında.
-                </p>
-              </div>
-            </div>
-            <div class="flip-card-back">
-              <h3 data-tr="İşletme Kaynaklı Karbon" data-en="Operational Carbon">
-                İşletme Kaynaklı Karbon
-              </h3>
-              <p data-tr="Yapıların işletme aşamasındaki karbon ayak izi ton CO₂/yıl olarak hesaplanarak enerji performansının çevresel etkisi değerlendirilir."
-                data-en="Operational carbon footprint of buildings calculated in tons of CO₂/year to evaluate environmental impacts of energy performance.">
-                Yapıların işletme aşamasındaki karbon ayak izi ton CO₂/yıl olarak hesaplanarak enerji performansının
-                çevresel etkisi değerlendirilir.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Embodied Carbon -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front intervention-card">
-              <img src="images/diagrams/Çalışma Yüzeyi 6-100.jpg" Embodied Carbon">
-              <div class="info">
-                <h3 data-tr="Gömülü Karbon" data-en="Embodied Carbon">
-                  Gömülü Karbon
-                </h3>
-                <p data-tr="kgCO₂e/m² hesaplaması." data-en="kgCO₂e/m² calculation.">
-                  kgCO₂e/m² hesaplaması.
-                </p>
-              </div>
-            </div>
-            <div class="flip-card-back">
-              <h3 data-tr="Gömülü Karbon" data-en="Embodied Carbon">
-                Gömülü Karbon
-              </h3>
-              <p data-tr="Yapı malzemelerinin üretiminden kaynaklanan karbon salınımı kgCO₂e/m² bazında hesaplanarak, sürdürülebilir malzeme seçimleri değerlendirilir."
-                data-en="Carbon emissions from building material production calculated in kgCO₂e/m² to inform sustainable material choices.">
-                Yapı malzemelerinin üretiminden kaynaklanan karbon salınımı kgCO₂e/m² bazında hesaplanarak,
-                sürdürülebilir malzeme seçimleri değerlendirilir.
-              </p>
-            </div>
-          </div>
+<div class="cards metrics" hidden>
+  <!-- 1. Energy Use -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <!-- Front -->
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 1-100.jpg" alt="Energy Use">
+        <div class="info">
+          <h3 data-tr="Energy Use" data-en="Energy Use">
+            Energy Use
+          </h3>
+          <p data-tr="Yıllık enerji tüketimi." data-en="Annual energy consumption.">
+            Yıllık enerji tüketimi.
+          </p>
         </div>
       </div>
+      <!-- Back -->
+      <div class="flip-card-back">
+        <h3 data-tr="Energy Use" data-en="Energy Use">
+          Energy Use
+        </h3>
+        <p data-tr="Yapıların yıllık enerji tüketimi kWh/m² olarak hesaplanarak enerji performansının bina tipleri ve kullanım senaryoları bazında detaylı değerlendirilmesi yapılır."
+           data-en="Annual energy consumption of buildings calculated as kWh/m², providing detailed performance assessments based on building types and usage scenarios.">
+          Yapıların yıllık enerji tüketimi kWh/m² olarak hesaplanarak enerji performansının bina tipleri ve
+          kullanım senaryoları bazında detaylı değerlendirilmesi yapılır.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Operational Carbon -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 5-100.jpg" alt="Operational Carbon">
+        <div class="info">
+          <h3 data-tr="İşletme Kaynaklı Karbon" data-en="Operational Carbon">
+            İşletme Kaynaklı Karbon
+          </h3>
+          <p data-tr="Ton/yıl bazında." data-en="Tons/year.">
+            Ton/yıl bazında.
+          </p>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h3 data-tr="İşletme Kaynaklı Karbon" data-en="Operational Carbon">
+          İşletme Kaynaklı Karbon
+        </h3>
+        <p data-tr="Yapıların işletme aşamasındaki karbon ayak izi ton CO₂/yıl olarak hesaplanarak enerji performansının çevresel etkisi değerlendirilir."
+           data-en="Operational carbon footprint of buildings calculated in tons of CO₂/year to evaluate environmental impacts of energy performance.">
+          Yapıların işletme aşamasındaki karbon ayak izi ton CO₂/yıl olarak hesaplanarak enerji performansının
+          çevresel etkisi değerlendirilir.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Embodied Carbon -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 6-100.jpg" alt="Embodied Carbon">
+        <div class="info">
+          <h3 data-tr="Gömülü Karbon" data-en="Embodied Carbon">
+            Gömülü Karbon
+          </h3>
+          <p data-tr="kgCO₂e/m² hesaplaması." data-en="kgCO₂e/m² calculation.">
+            kgCO₂e/m² hesaplaması.
+          </p>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h3 data-tr="Gömülü Karbon" data-en="Embodied Carbon">
+          Gömülü Karbon
+        </h3>
+        <p data-tr="Yapı malzemelerinin üretiminden kaynaklanan karbon salınımı kgCO₂e/m² bazında hesaplanarak, sürdürülebilir malzeme seçimleri değerlendirilir."
+           data-en="Carbon emissions from building material production calculated in kgCO₂e/m² to inform sustainable material choices.">
+          Yapı malzemelerinin üretiminden kaynaklanan karbon salınımı kgCO₂e/m² bazında hesaplanarak,
+          sürdürülebilir malzeme seçimleri değerlendirilir.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. IOD -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 2-100.jpg" alt="IOD">
+        <div class="info">
+          <h3 data-tr="IOD" data-en="IOD">
+            IOD
+          </h3>
+          <p data-tr="Aşırı Isınma Riski" data-en="Indoor Overheating Degree">
+            Aşırı Isınma Riski
+          </p>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h3 data-tr="IOD" data-en="Indoor–Outdoor Delta">
+          IOD
+        </h3>
+        <p data-tr="İç mekânda konfor sınırlarını aşan sıcaklık süreleri ve şiddeti analiz edilerek aşırı ısınma riski değerlendirilir ve önleyici stratejiler geliştirilir."
+          data-en="Indoor overheating risk is assessed by analyzing the duration and intensity of temperature exceedances beyond comfort thresholds, informing mitigation strategies.">
+          İç mekânda konfor sınırlarını aşan sıcaklık süreleri ve şiddeti analiz edilerek aşırı ısınma riski değerlendirilir ve önleyici stratejiler geliştirilir.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Abatement Costs -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 4-100.jpg" alt="Abatement Costs">
+        <div class="info">
+          <h3 data-tr="Emisyon Azaltım Maliyetleri" data-en="Abatement Costs">
+            Emisyon Azaltım Maliyetleri
+          </h3>
+          <p data-tr="$/tCO₂ abatement." data-en="$/tCO₂ abatement.">
+            $/tCO₂ abatement.
+          </p>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h3 data-tr="Emisyon Azaltım Maliyetleri" data-en="Abatement Costs">
+          Emisyon Azaltım Maliyetleri
+        </h3>
+        <p data-tr="Karbon emisyonlarını azaltmak için gerekli maliyetler $/tCO₂ olarak hesaplanarak, çeşitli enerji senaryolarının maliyet etkinliği karşılaştırılır."
+           data-en="Costs required for carbon emission reduction calculated as $/tCO₂, comparing cost-effectiveness across different energy scenarios.">
+          Karbon emisyonlarını azaltmak için gerekli maliyetler $/tCO₂ olarak hesaplanarak, çeşitli enerji
+          senaryolarının maliyet etkinliği karşılaştırılır.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Yaşamboyu Maliyet Analizleri -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front intervention-card">
+        <img src="images/diagrams/Çalışma Yüzeyi 3-100.jpg" alt="Lifecycle Costing">
+        <div class="info">
+          <h3 data-tr="Yaşamboyu Maliyet Analizleri" data-en="Lifecycle Costing">
+            Yaşamboyu Maliyet Analizleri
+          </h3>
+          <p data-tr="Projelerin tüm ömür döngüsü boyunca CAPEX, OPEX ve bakım giderleri analiz edilir."
+             data-en="Comprehensive analysis of CAPEX, OPEX, and maintenance costs over the project lifecycle.">
+            Projelerin tüm ömür döngüsü boyunca CAPEX, OPEX ve bakım giderleri analiz edilir.
+          </p>
+        </div>
+      </div>
+      <div class="flip-card-back">
+        <h3 data-tr="Yaşamboyu Maliyet Analizleri" data-en="Lifecycle Costing">
+          Yaşamboyu Maliyet Analizleri
+        </h3>
+        <p data-tr="Ekonomik ömrü, net bugünkü değeri ve geri ödeme süreleri de dahil edilerek, yatırımın toplam maliyeti ve kârlılığı değerlendirilir."
+           data-en="Total cost and profitability of the investment are evaluated—including economic life, net present value, and payback periods.">
+          Ekonomik ömrü, net bugünkü değeri ve geri ödeme süreleri de dahil edilerek, yatırımın toplam maliyeti ve kârlılığı değerlendirilir.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   </section>
 
@@ -2539,7 +2707,7 @@
       <div class="project-card">
         <img src="images/diagrams/Varlık 19.jpg" alt="UP2030">
         <div class="card-content">
-          <h3 data-tr="UP2030" data-en="UP 2030">UP2030</h3>
+          <h3 data-tr="UP2030" data-en="UP2030">UP2030</h3>
           <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları and Metrik Panelleri"
             data-en="Urban Building Energy Models, Energy Renovation Scenarios and Dashboards">
             Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları ve Metrik Panelleri
@@ -2569,7 +2737,7 @@
       <div class="project-card">
         <img src="images/diagrams/ankara.png" alt="1004">
         <div class="card-content">
-          <h3 data-tr="1004" data-en="1004">1004</h3>
+          <h3 data-tr="SUIT" data-en="SUIT">SUIT</h3>
           <p data-tr="Enerji Renovasyon Senaryoları Karşılaştırması &#10;ve Bölge Bazlı Karar Destek Sistemi"
             data-en="Energy Renovation Scenarios Comparison &#10;and District Scale Decision-Support Tool">
             Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı Karar Destek Sağlama Aracı
@@ -2641,7 +2809,7 @@
         <div class="member-card">
           <img src="images/team/ipek_gursel_dino.jpeg" alt="Prof. Dr. İpek Gürsel Dino">
           <h4>Prof. Dr. İpek Gürsel Dino</h4>
-          <p>Academician, Architecture, Urban Energy Modeling</p>
+          <p>Academician, Architecture</p>
         </div>
         <div class="member-card">
           <img src="images/team/sinan_kalkan.jpg" alt="Prof. Dr. Sinan Kalkan">
@@ -2657,43 +2825,52 @@
         <div class="member-card">
           <img src="images/team/otaylanprofile_0.png" alt="Prof. Dr. Onur Taylan">
           <h4>Prof. Dr. Onur Taylan</h4>
-          <p>Academician, Electric and Electronic Engineering</p>
+          <p>Academician, Mechanical Engineering</p>
         </div>
         <div class="member-card">
           <img src="images/team/ilkim_canli.jpg" alt="İlkim Canlı">
           <h4>İlkim Canlı</h4>
-          <p>PhD Candidate, Architecture and Sustainability</p>
+          <p>PhD Candidate,Researcher, Architecture</p>
         </div>
         <div class="member-card">
           <img src="images/team/cihat_ilkbahar.jpg" alt="Cihat İlkbahar">
           <h4>Cihat İlkbahar</h4>
-          <p>Researcher, Architecture and Sustainability</p>
+          <p>Researcher, Master Student,Architecture</p>
         </div>
         <div class="member-card">
           <img src="images/team/fatma_ece_gursoy.jpeg" alt="Fatma Ece Gürsoy">
           <h4>Fatma Ece Gürsoy</h4>
-          <p>Researcher, Architecture and Sustainability</p>
+          <p>Researcher, Master Student,Architecture</p>
         </div>
         <div class="member-card">
           <img src="images/team/ataberk_yilmaz.jpeg" alt="Ataberk Yılmaz">
           <h4>Ataberk Yılmaz</h4>
-          <p>Researcher ,Master Student, Architecture</p>
+          <p>Researcher, Master Student,Architecture</p>
         </div>
         <div class="member-card">
-          <img src="images/team/user.png" alt="Melis Ceren Özdemir">
-          <h4>Melis Ceren Özdemir</h4>
-          <p>Master Student, Architecture</p>
-        </div>
-        <div class="member-card">
-          <img src="images/team/user.png" alt="Sena Nur Cabadağ">
-          <h4>Sena Nur Cabadağ</h4>
-          <p>Master Student, Architecture</p>
-        </div>
-        <div class="member-card">
-          <img src="images/team/user.png" alt="Dican Deniz Köse">
+          <img src="images/team/dican.png" alt="Dican Deniz Köse">
           <h4>Dican Deniz Köse</h4>
           <p>Master Student, Architecture</p>
         </div>
+        
+        <div class="member-card">
+          <img src="images/team/ataberk_demir.jpeg" alt="Ataberk Demir">
+          <h4>Ataberk Demir</h4>
+          <p>Master Student, Mechanical Engineering</p>
+        </div>
+
+        <div class="member-card">
+          <img src="images/team/melis.jpg" alt="Melis Ceren Özdemir">
+          <h4>Melis Ceren Özdemir</h4>
+          <p>Master Student, Architecture</p>
+        </div>
+
+        <div class="member-card">
+          <img src="images/team/bahadır.jpg" alt="Bahadır Pehlivan">
+          <h4>Bahadır Pehlivan</h4>
+          <p>Master Student, Architecture</p>
+        </div>
+        
       </div>
       <button id="nextBtn" class="carousel-btn">&#10095;</button>
     </div>
@@ -2929,24 +3106,53 @@
 
 
 
-    // Carousel (değiştirilmedi)
-    (function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const track = document.querySelector('.carousel-track');
       const container = document.querySelector('.carousel-container');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
-      const total = track.children.length;
-      const perView = 4;
-      const maxIdx = Math.ceil(total / perView) - 1;
-      let idx = 0;
-      function update() {
+      const items = Array.from(track.children);
+      let perView, maxIdx, idx = 0;
+
+      function updateConfig() {
+        // Container genişliği / öğe genişliği kadar öğe sığıyorsa o kadar perView
+        const cw = container.clientWidth;
+        const iw = items[0].clientWidth;
+        perView = Math.max(1, Math.floor(cw / iw));
+        maxIdx = Math.ceil(items.length / perView) - 1;
+      }
+
+      function updateCarousel() {
         track.style.transform = `translateX(-${container.clientWidth * idx}px)`;
       }
-      prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; update(); } });
-      nextBtn.addEventListener('click', () => { if (idx < maxIdx) { idx++; update(); } });
-      update();
-      window.addEventListener('resize', update);
-    })();
+
+      // Butonlar
+      prevBtn.addEventListener('click', () => {
+        if (idx > 0) {
+          idx--;
+          updateCarousel();
+        }
+      });
+      nextBtn.addEventListener('click', () => {
+        if (idx < maxIdx) {
+          idx++;
+          updateCarousel();
+        }
+      });
+
+      // Yeniden boyutlandığında ayarları güncelle ve aktif sayfayı sınırla
+      window.addEventListener('resize', () => {
+        const oldMax = maxIdx;
+        updateConfig();
+        if (idx > maxIdx) idx = maxIdx;
+        updateCarousel();
+      });
+
+      // İlk ayar
+      updateConfig();
+      updateCarousel();
+    });
+
 
     document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('projects-modal');
@@ -3094,6 +3300,24 @@
         }, { passive: true });
       });
     })();
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll(
+        'a.btn-details[href="legofit.html"], a.btn-details[href="1004.html"]'
+      );
+      buttons.forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          alert(
+            "🚧 Work in Progress!\n\n" +
+            "Our LEGOFIT and SUIT projects are undergoing final enhancements and will be live very soon.\n" +
+            "Thank you for your patience and stay tuned! 🚀"
+          );
+        });
+      });
+    });
   </script>
 
 </body>
