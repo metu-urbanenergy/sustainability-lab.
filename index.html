@@ -1408,52 +1408,71 @@
       transform: translateY(-10px);
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
     }
+/* önce .card-content’in kendi genişliği neyse ona uygun padding/margin bırakın */
+.project-card .card-content {
+  position: relative;
+  padding: 1.5rem;
+  /* eğer metinler left align ise burada text-align:center yapmayın */
+}
 
-    /* ─── Proje Kartı “Visit Site” Butonları Özelleştirmesi ────────────────── */
-    .project-card .btn-details {
-      display: inline-block;
-      background: transparent;
-      color: var(--heading-color);
-      border: 2px solid var(--heading-color);
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.025em;
-      position: relative;
-      overflow: hidden;
-      transition:
-        background-color 0.3s ease,
-        color 0.3s ease,
-        transform 0.2s ease;
-    }
+/* Visit Website butonunu block yapıp, max-width verip ortala */
+.project-card .btn-details {
+  display: block;                  /* block olduğu için width’ini aşağıda kontrol edebiliriz */
+  width: 100%;                     /* konteynerinin tamamını kullanmaya çalışır */
+  max-width: 380px;                /* metin bloğunuzun genişliğine yakın bir değer */
+  margin: 1rem auto 0;             /* üstte 1rem boşluk, yanlarda auto ile ortala */
+  
+  /* geri kalan stildekiler */
+  padding: 0.75rem 1.5rem;
+  background-color: var(--heading-color);
+  color: #fff;
+  text-transform: capitalize;
+  text-align: center;
+  clip-path: polygon(
+    12px 0%,
+    calc(100% - 12px) 0%,
+    100% 50%,
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0% 50%
+  );
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    .project-card .btn-details:hover {
-      background-color: var(--heading-color);
-      color: var(--bg-color);
-      transform: translateY(-2px);
-    }
+/* ok ikonları */
+.project-card .btn-details::after {
+  content: "\00BB\00BB";
+  margin-left: 0.5rem;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
 
-    .project-card .btn-details::after {
-      content: "→";
-      display: inline-block;
-      margin-left: 0.5rem;
-      opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
+/* hover’da ok gizle */
+.project-card .btn-details:hover::after {
+  opacity: 0;
+}
 
-    .project-card .btn-details:hover::after {
-      opacity: 1;
-      transform: translateX(0);
-    }
+/* tıklanırken beyaz arka fon, turuncu yazı, oklar tekrar görünür */
+.project-card .btn-details:active {
+  background-color: #fff;
+  color: #FFA166;
+}
+.project-card .btn-details:active::after {
+  opacity: 1;
+}
 
-    @media (max-width: 768px) {
-      .project-card .btn-details {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-      }
-    }
+/* mobilde padding/fon küçültme */
+@media (max-width: 768px) {
+  .project-card .btn-details {
+    max-width: 200px;    /* isterseniz mobilde farklı bir genişlik */
+    padding: 0.5rem 1rem;
+    margin-top: 0.75rem;
+  }
+}
+
+
 
 
 
@@ -2090,7 +2109,7 @@
       font-size: 3rem;
       text-align: center;
       margin-top: 2rem;
-      color: white;
+      color: var(--heading-color);
     }
 
     .modal-close {
@@ -2151,6 +2170,17 @@
         text-align: center !important;
         word-break: break-word !important;
       }
+      /* ─── Modal Kart Yazı Rengi (Normal + Dark) ───────────────────────── */
+      .modal-card p,
+      body.dark .modal-card p {
+        color: red !important;
+      }
+
+      .modal-card h3,
+      body.dark .modal-card h3 {
+        color: red !important;
+      }
+
     }
   </style>
 </head>
@@ -2472,9 +2502,9 @@
                 <h3 data-tr="Depolama Çözümleri" data-en="Storage Solutions">
                   Depolama Çözümleri
                 </h3>
-                <p data-tr="Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir."
-                  data-en="Storage systems are analyzed according to hourly energy use.">
-                  Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir.
+                <p data-tr="Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir"
+                  data-en="Storage systems are analyzed according to hourly energy use">
+                  Saatlik enerji kullanımı analiz edilerek depolama sistemleri önerilir
                 </p>
               </div>
             </div>
@@ -2701,12 +2731,12 @@
         <img src="images/diagrams/Varlık 19.jpg" alt="UP2030">
         <div class="card-content">
           <h3 data-tr="UP2030" data-en="UP2030">UP2030</h3>
-          <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları and Metrik Panelleri"
+          <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları,Yaşamboyu Maliyet Analizleri ve Metrik Panelleri"
             data-en="Urban Building Energy Models, Energy Renovation Scenarios and Dashboards">
             Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları ve Metrik Panelleri
           </p>
-          <a href="#" id="open-up2030" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Site">
-            Visit Site
+          <a href="#" id="open-up2030" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
+            Visit WebSite
           </a>
         </div>
       </div>
@@ -2716,11 +2746,11 @@
         <img src="images/diagrams/ISTANBUL.png" alt="LEGOFIT">
         <div class="card-content">
           <h3 data-tr="LEGOFIT" data-en="LEGOFIT">LEGOFIT</h3>
-          <p data-tr="Uyarlanabilir Teknolojik Çözümler ve Bina Enerji Performansı Optimizasyonu"
+          <p data-tr="Uyarlanabilir Teknolojik Çözümler, Senaryo Karşılaştırmaları ve Bina Enerji Performansı Optimizasyonu"
             data-en="Adaptable Technological Solutions and&#10;Building Energy Performance Optimization">
             Uyarlanabilir Teknolojik Çözümler ve Bina Enerji Performansı Optimizasyonu
           </p>
-          <a href="legofit.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Site">
+          <a href="legofit.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
             Visit Site
           </a>
         </div>
@@ -2731,11 +2761,11 @@
         <img src="images/diagrams/ankara.png" alt="1004">
         <div class="card-content">
           <h3 data-tr="SUIT" data-en="SUIT">SUIT</h3>
-          <p data-tr="Enerji Renovasyon Senaryoları Karşılaştırması &#10;ve Bölge Bazlı Karar Destek Sistemi"
+          <p data-tr="Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı &#10;Karar Destek Sistemi"
             data-en="Energy Renovation Scenarios Comparison &#10;and District Scale Decision-Support Tool">
             Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı Karar Destek Sağlama Aracı
           </p>
-          <a href="1004.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Site">
+          <a href="1004.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
             Visit Site
           </a>
         </div>
@@ -2751,7 +2781,7 @@
   <!-- Modal Overlay zaten sayfanızda mevcut -->
   <div id="projects-modal" class="modal-overlay" hidden>
     <div class="modal">
-      <button class="modal-close">&times;</button>
+      <button type="button" class="modal-close">&times;</button>
       <!-- Buraya data-tr ve data-en ekliyoruz -->
       <h3 data-tr="Gösterge Tablolarımızı Keşfedin" data-en="Explore Our Dashboards">
         Explore Our Dashboards
@@ -2816,8 +2846,8 @@
         </div>
 
         <div class="member-card">
-          <img src="images/team/otaylanprofile_0.png" alt="Prof. Dr. Onur Taylan">
-          <h4>Prof. Dr. Onur Taylan</h4>
+          <img src="images/team/otaylanprofile_0.png" alt="Assoc. Prof. Onur Taylan">
+          <h4>Assoc. Prof. Onur Taylan</h4>
           <p>Academician, Mechanical Engineering</p>
         </div>
         <div class="member-card">
@@ -2979,9 +3009,9 @@
       <div id="contact" class="footer-col contact">
         <h4>Contact</h4>
         <address>
-          <p><strong>Phone:</strong> +905455147800</p>
-          <p><strong>Email1:</strong> <a href="mailto:info@metu-energylab.edu.tr">ipekg@metu.edu.tr</a></p>
-          <p><strong>Email2:</strong> <a href="mailto:info@metu-energylab.edu.tr">cihat.ilkbahar@metu.edu.tr</a></p>
+        <p><strong>E-mail01:</strong> <a href="mailto:info@metu-energylab.edu.tr">ipekg@metu.edu.tr</a></p>
+        <p><strong>E-mail02:</strong> <a href="mailto:info@metu-energylab.edu.tr">cihat.ilkbahar@metu.edu.tr</a></p>
+        <p><strong>Website Design :</strong> <br>Cihat İlkbahar /METU ARCHITECTURE <br> İlke Nilsu Durukan /METU ARCHITECTURE</p>
         </address>
       </div>
     </div>
