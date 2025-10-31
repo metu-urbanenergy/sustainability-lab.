@@ -1283,87 +1283,129 @@
     }
 
 
-    /* ─── Projects Bölümü Temel Düzen ─────────────────────────────────────── */
-    #projects {
-      width: 100%;
-      padding: 6rem 0 4rem;
-    }
+/* ─── Projects Bölümü ─────────────────────────────────────────────── */
+/* Section padding */
+#projects {
+  width: 100%;
+  padding: 10rem 0 8rem;               /* daha aşağıda ve nefesli */
+  display: flex;
+  justify-content: center;
+}
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(320px, 1fr));
-      gap: 3rem;
-      justify-content: center;
-      margin: 2rem auto 0;
-      max-width: 1240px;
-    }
+/* Grid layout */
+.projects-grid {
+  width: 94%;                           /* kenarlara yakınlık */
+  max-width: 1600px;                    /* geniş çalışma alanı */
+  display: grid;
+  gap: 36px;                            /* kart arası nefes */
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
+}
 
-    .project-card {
-      display: flex;
-      flex-direction: column;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    }
+/* Project card */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: #f2f7ef;
+  border-radius: 26px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
 
-    .project-card .img-wrapper {
-      width: 100%;
-      height: 355px;
-      overflow: hidden;
-    }
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
 
-    .project-card .img-wrapper img {
-      height: 100%;
-      width: auto;
-      display: block;
-    }
+/* Image container: sabit görünüm oranı */
+.project-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;      /* 4:3 dengeli bir oran, istersen 16:9 yaparız */
+  background: rgba(0,0,0,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;         /* taşan kırpılsın */
+}
 
-    .card-content {
-      padding: 1.5rem;
-    }
+/* Görseller */
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* alanı doldurur, boşluk sıfır */
+  object-position: center;
+}
 
-    .project-card .card-content p {
-      white-space: pre-line;
-    }
+/* Bazı görseller çok detaylıysa ve kırpmayı istemiyorsan: sadece o div’e*/
+.project-image.keep-contain img {
+  object-fit: contain;      /* gerektiğinde beyaz boşluk olur */
+}
 
-    @media (max-width: 768px) {
-      .projects-grid {
-        gap: 1rem;
-        padding: 0 1rem;
-      }
 
-      .project-card {
-        max-width: 100%;
-        margin: 0 auto 1rem;
-      }
+/* Card body */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.8rem;                      /* ferah */
+}
 
-      .project-card .img-wrapper {
-        height: 200px !important;
-      }
+.card-content p {
+  margin-top: .5rem;
+  margin-bottom: 2rem;
+  line-height: 1.55;
+}
 
-      .project-card .card-content {
-        padding: 0.75rem;
-      }
+/* Button stays at bottom */
+.btn-details {
+  margin-top: auto;
+  display: inline-block;
+  background: #cf7e73;
+  color: white;
+  padding: 16px 28px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 600;
+}
 
-      .project-card .card-content h3 {
-        font-size: 1.25rem;
-      }
+/* ── Responsive ───────────────────────────────────────── */
 
-      .project-card .card-content p {
-        font-size: 0.9rem;
-        -webkit-line-clamp: 2;
-      }
-    }
+/* Tablet ve altı: 2 sütun */
+@media (max-width: 1100px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
 
-    .project-card .card-content p {
-      margin-top: 0.5rem;
-      line-height: 1.5;
-      word-break: break-word;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-    }
+/* Telefon: ekranda TEK kart, tam ekran kaydırma deneyimi */
+@media (max-width: 600px) {
+  #projects {
+    padding: 6rem 0;
+  }
+
+  /* Dikey scroll-snap ile her kart tek ekrana oturur */
+  .projects-grid {
+    width: 92%;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+
+  .project-card {
+    min-height: calc(100vh - 6rem);     /* header/padding payı düşülmüş tam ekran */
+    scroll-snap-align: start;
+  }
+
+  .project-image {
+    height: clamp(240px, 45vh, 520px);  /* mobilde görsel alanı daha dominant */
+  }
+}
+
 
     /* ─── Projects Kart Hover & Buton Animasyonları ───────────────────────── */
     .project-card {
@@ -2728,59 +2770,81 @@
 
 
   <!-- ─── Projects Bölümü ─────────────────────────────────────────────────── -->
-  <section id="projects">
-    <div class="projects-grid">
-      <!-- 1. Proje Kartı -->
-      <div class="project-card">
+<section id="projects">
+  <div class="projects-grid">
+
+    <!-- 1. Proje Kartı -->
+    <div class="project-card">
+      <div class="project-image">
         <img src="images/diagrams/Varlık 19.jpg" alt="UP2030">
-        <div class="card-content">
-          <h3 data-tr="UP2030" data-en="UP2030">UP2030</h3>
-          <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları,Yaşamboyu Maliyet Analizleri ve Metrik Panelleri"
-            data-en="Urban Building Energy Models, Energy Renovation Scenarios and Dashboards">
-            Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları ve Metrik Panelleri
-          </p>
-          <a href="#" id="open-up2030" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
-            Visit WebSite
-          </a>
-        </div>
       </div>
-
-      <!-- 2. Proje Kartı -->
-      <div class="project-card">
-        <img src="images/diagrams/ISTANBUL.png" alt="LEGOFIT">
-        <div class="card-content">
-          <h3 data-tr="LEGOFIT" data-en="LEGOFIT">LEGOFIT</h3>
-          <p data-tr="Uyarlanabilir Teknolojik Çözümler, Senaryo Karşılaştırmaları ve Bina Enerji Performansı Optimizasyonu"
-            data-en="Adaptable Technological Solutions and&#10;Building Energy Performance Optimization">
-            Uyarlanabilir Teknolojik Çözümler ve Bina Enerji Performansı Optimizasyonu
-          </p>
-          <a href="legofit.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
-            Visit Site
-          </a>
-        </div>
+      <div class="card-content">
+        <h3 data-tr="UP2030" data-en="UP2030">UP2030</h3>
+        <p data-tr="Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları,Yaşamboyu Maliyet Analizleri ve Metrik Panelleri"
+           data-en="Urban Building Energy Models, Energy Renovation Scenarios and Dashboards">
+          Kentsel Bina Enerji Modellemeleri,Enerji Renovasyon Senaryoları ve Metrik Panelleri
+        </p>
+        <a href="#" id="open-up2030" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
+          Visit Website
+        </a>
       </div>
-
-      <!-- 3. Proje Kartı -->
-      <div class="project-card">
-        <img src="images/diagrams/ankara.png" alt="1004">
-        <div class="card-content">
-          <h3 data-tr="SUIT" data-en="SUIT">SUIT</h3>
-          <p data-tr="Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı &#10;Karar Destek Sistemi"
-            data-en="Energy Renovation Scenarios Comparison &#10;and District Scale Decision-Support Tool">
-            Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı Karar Destek Sağlama Aracı
-          </p>
-          <a href="1004.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
-            Visit Site
-          </a>
-        </div>
-      </div>
-
-      <!-- Daha fazla proje eklemek için bu yapıyı kopyalayın -->
     </div>
-  </section>
 
+    <!-- 2. Proje Kartı -->
+    <div class="project-card">
+      <div class="project-image">
+        <img src="images/diagrams/ISTANBUL.png" alt="LEGOFIT">
+      </div>
+      <div class="card-content">
+        <h3 data-tr="LEGOFIT" data-en="LEGOFIT">LEGOFIT</h3>
+        <p data-tr="Uyarlanabilir Teknolojik Çözümler, Senaryo Karşılaştırmaları ve Bina Enerji Performansı Optimizasyonu"
+           data-en="Adaptable Technological Solutions and Building Energy Performance Optimization">
+          Uyarlanabilir Teknolojik Çözümler ve Bina Enerji Performansı Optimizasyonu
+        </p>
+        <a href="legofit.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
+          Visit Site
+        </a>
+      </div>
+    </div>
 
+    <!-- 3. Proje Kartı -->
+    <div class="project-card">
+      <div class="project-image">
+        <img src="images/diagrams/ankara.png" alt="SUIT">
+      </div>
+      <div class="card-content">
+        <h3 data-tr="SUIT" data-en="SUIT">SUIT</h3>
+        <p data-tr="Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı Karar Destek Sistemi"
+           data-en="Energy Renovation Scenarios Comparison and District Scale Decision-Support Tool">
+          Enerji Renovasyon Senaryoları Karşılaştırması ve Bölge Bazlı Karar Destek Sağlama Aracı
+        </p>
+        <a href="1004.html" class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
+          Visit Site
+        </a>
+      </div>
+    </div>
 
+    <!-- 4. Proje Kartı: PED-ACT -->
+    <div class="project-card">
+      <div class="project-image">
+        <img src="images/diagrams/camlikgörsel.jpg" alt="PED-ACT">
+      </div>
+      <div class="card-content">
+        <h3 data-tr="PED-ACT" data-en="PED-ACT">PED-ACT</h3>
+        <p data-tr="Pozitif Enerji Bölgeleri için eylem odaklı karar destek ve saha uygulamaları"
+           data-en="Action-oriented decision support and field implementations for Positive Energy Districts">
+          Pozitif Enerji Bölgeleri için eylem odaklı karar destek ve saha uygulamaları
+        </p>
+        <a href="https://ped-act.com/" target="_blank" rel="noopener noreferrer"
+            class="btn-details" data-tr="Siteyi Ziyaret Et" data-en="Visit Website">
+            Visit Website
+          </a>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <!-- Modal Overlay zaten sayfanızda mevcut -->
   <div id="projects-modal" class="modal-overlay" hidden>
@@ -2915,7 +2979,7 @@
     <h2 data-tr="Yayınlar" data-en="Publications">Publications</h2>
     <ul class="publications-list">
       <li class="publication">
-        <a href="https://doi.org/10.1016/j.scs.2024.106500" target="_blank" rel="noopener noreferrer"
+        <a href="https://www.sciencedirect.com/science/article/pii/S2210670725003762" target="_blank" rel="noopener noreferrer"
           title="Canli et al. (2024) Machine learning-based prediction of long-term energy consumption">
           Canli, I., Halacli, E. G., Ucar, S., Iseri, O. K., Yavuz, F., Guney, D., Gursoy, F. E., &amp; Dino, I. G.
           (2024). Machine learning-based prediction of long-term energy consumption and overheating under climate change
